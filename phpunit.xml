@@ -39,7 +39,7 @@
     </source>
 
     <testsuites>
-        <testsuite name="Template Test Suite">
+        <testsuite name="atb Test Suite">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>

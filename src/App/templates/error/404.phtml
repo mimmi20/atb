@@ -1,0 +1,11 @@
+<?php $this->headTitle('404 Not Found'); ?>
+
+<div class="error-page-wrap">
+    <article class="error-page gradient">
+        <h1>404</h1>
+        <h2><?= $this->escapeHtml($this->translate('Oops! page not found')) ?></h2>
+        <a href="<?= $this->url('startpage') ?>" title="<?= $this->escapeHtml($this->translate('Back to site')) ?>" class="error-back"><?= $this->escapeHtml($this->translate('Home')) ?></a>
+    </article>
+</div>
+
+<?php $this->headLink()->appendStylesheet('/css/404.css', 'screen', ['rel' => 'stylesheet']); ?>

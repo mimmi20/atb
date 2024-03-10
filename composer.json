@@ -1,6 +1,6 @@
 {
-  "name": "mimmi20/template",
-  "description": "Provides a GitHub repository template for a PHP library, using GitHub actions.",
+  "name": "mimmi20/atb",
+  "description": "Provides a GitHub repository atb for a PHP library, using GitHub actions.",
   "license": "MIT",
   "type": "library",
   "authors": [
@@ -11,17 +11,55 @@
     },
     {
       "name": "Contributors",
-      "homepage": "https://github.com/mimmi20/template/graphs/contributors"
+      "homepage": "https://github.com/mimmi20/atb/graphs/contributors"
     }
   ],
-  "homepage": "https://github.com/mimmi20/template",
+  "homepage": "https://github.com/mimmi20/atb",
   "support": {
-    "issues": "https://github.com/mimmi20/template/issues",
-    "source": "https://github.com/mimmi20/template"
+    "issues": "https://github.com/mimmi20/atb/issues",
+    "source": "https://github.com/mimmi20/atb"
   },
   "require": {
     "php": "^8.1.0",
-    "ext-mbstring": "*"
+    "ext-fileinfo": "*",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "fig/http-message-util": "^1.1.5",
+    "laminas/laminas-component-installer": "^3.4.0",
+    "laminas/laminas-config": "^3.9.0",
+    "laminas/laminas-config-aggregator": "^1.14.0",
+    "laminas/laminas-diactoros": "^3.3.1",
+    "laminas/laminas-form": "^3.19.2",
+    "laminas/laminas-i18n": "^2.26.0",
+    "laminas/laminas-i18n-resources": "^2.10.0",
+    "laminas/laminas-servicemanager": "^3.22.1",
+    "laminas/laminas-stdlib": "^3.19.0",
+    "laminas/laminas-validator": "dev-feature-mezzio as 2.47.0",
+    "mezzio/mezzio": "^3.19.0",
+    "mezzio/mezzio-helpers": "^5.16.0",
+    "mezzio/mezzio-laminasrouter": "^3.9.0",
+    "mezzio/mezzio-laminasviewrenderer": "^2.15.1",
+    "mezzio/mezzio-router": "^3.17.0",
+    "mimmi20/laminas-form-element-group": "^3.0.7",
+    "mimmi20/laminas-form-element-links": "^2.0.6",
+    "mimmi20/laminas-form-element-paragraph": "^2.0.6",
+    "mimmi20/laminasviewrenderer-bootstrap-form": "dev-updates as 2.0.5",
+    "mimmi20/laminasviewrenderer-vite-url": "^1.0.2",
+    "mimmi20/mezzio-generic-authorization": "^3.0.4",
+    "mimmi20/mezzio-navigation": "^3.0.4",
+    "mimmi20/mezzio-navigation-laminasviewrenderer": "^3.0.1",
+    "mimmi20/mezzio-navigation-laminasviewrenderer-bootstrap": "^2.0.3",
+    "mimmi20/monolog-callbackfilterhandler": "^3.0.4",
+    "mimmi20/monolog-factory": "^2.0.7",
+    "mimmi20/monolog-streamformatter": "^3.1.1",
+    "mimmi20/navigation-helper-acceptpage": "^2.1.1",
+    "mimmi20/navigation-helper-containerparser": "^4.0.1",
+    "mimmi20/navigation-helper-converttopages": "^2.1.3",
+    "mimmi20/navigation-helper-findactive": "^2.1.1",
+    "mimmi20/navigation-helper-findfromproperty": "^2.1.2",
+    "mimmi20/navigation-helper-findroot": "^2.1.1",
+    "mimmi20/navigation-helper-htmlify": "^4.0.1"
   },
   "require-dev": {
     "ext-ctype": "*",
@@ -30,7 +68,9 @@
     "ext-tokenizer": "*",
     "ext-xml": "*",
     "ext-xmlwriter": "*",
+    "filp/whoops": "^2.15.4",
     "infection/infection": "^0.27.10",
+    "mezzio/mezzio-tooling": "^2.9.0",
     "mimmi20/coding-standard": "^5.2.17",
     "nikic/php-parser": "^v4.18.0",
     "phpstan/extension-installer": "^1.3.1",
@@ -40,16 +80,68 @@
     "phpunit/phpunit": "^10.5.11",
     "rector/rector": "^1.0.2"
   },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/App/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AppTest\\": "tests/AppTest/"
+    }
+  },
   "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
     "preferred-install": "dist",
-    "lock": false,
     "sort-packages": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "phpstan/extension-installer": true,
-      "infection/extension-installer": true
+      "infection/extension-installer": true,
+      "laminas/laminas-component-installer": true
     }
-  }
+  },
+  "extra": {
+    "laminas": {
+      "component-whitelist": [
+        "mezzio/mezzio",
+        "mezzio/mezzio-helpers",
+        "mezzio/mezzio-router",
+        "laminas/laminas-httphandlerrunner",
+        "mezzio/mezzio-laminasrouter",
+        "mezzio/mezzio-laminasviewrenderer"
+      ]
+    }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "@development-enable"
+    ],
+    "post-install-cmd": "@clear-config-cache",
+    "post-update-cmd": "@clear-config-cache",
+    "development-disable": "laminas-development-mode disable",
+    "development-enable": "laminas-development-mode enable",
+    "development-status": "laminas-development-mode status",
+    "clear-config-cache": "php bin/clear-config-cache.php",
+    "check": [
+      "@cs-check",
+      "@test"
+    ],
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "mezzio": "mezzio --ansi",
+    "serve": [
+      "Composer\\Config::disableProcessTimeout",
+      "php -S 0.0.0.0:8080 -t public/"
+    ],
+    "test": "phpunit --colors=always",
+    "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/mimmi20/laminas-validator"
+    }
+  ]
 }

@@ -1,0 +1,8 @@
+<?php /** @var $page string **/ ?>
+<?php /** @var $form \Laminas\Form\FormInterface **/ ?>
+<?= $this->partial(
+    sprintf('pages::%s', $page),
+    [
+        'form' => $form,
+    ]
+);

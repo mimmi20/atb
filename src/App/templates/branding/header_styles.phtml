@@ -1,0 +1,15 @@
+<?php
+// Wenn neue Dateien hinzukommen, bitte nicht vergessen den Node-Minifier anzupassen. Dort müssen neue Dateien ebenfalls
+// hinzugefügt werden. Dieser liegt unter, /build/jsminify.run.js
+
+$this->headLink()->setAutoEscape(false);
+
+$this->headLink()->appendStylesheet($this->viteUrl()->css('node_modules/bootstrap-icons/font/bootstrap-icons.css'), 'screen', ['rel' => 'stylesheet']);
+$this->headLink()->appendStylesheet($this->viteUrl()->css('public/css/styles.css'), 'screen', ['rel' => 'stylesheet']);
+$this->headLink()->appendStylesheet($this->viteUrl()->css('public/css/help.css'), 'screen', ['rel' => 'stylesheet']);
+$this->headLink()->appendStylesheet($this->viteUrl()->css('public/css/themes/glass.css'), 'screen', ['rel' => 'stylesheet']);
+?>
+
+<?= $this->headLink(); ?>
+
+<?= $this->headStyle(); ?>
