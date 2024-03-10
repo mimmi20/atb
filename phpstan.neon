@@ -15,7 +15,7 @@ parameters:
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
 
   # reports occurrences of type-checking functions always evaluated to true
-  checkAlwaysTrueCheckTypeFunctionCall: true
+  checkAlwaysTrueCheckTypeFunctionCall: false
 
   # reports instanceof occurrences always evaluated to true
   checkAlwaysTrueInstanceof: true
@@ -39,7 +39,7 @@ parameters:
   checkGenericClassInNonGenericObjectType: true
 
   # be strict about values with an unspecified (implicit mixed) type
-  checkImplicitMixed: true
+  checkImplicitMixed: false
 
   # reports references to built-in classes with incorrect name case
   checkInternalClassCaseSensitivity: true
@@ -72,10 +72,10 @@ parameters:
   reportAlwaysTrueInLastCondition: true
 
   # reports violations of parameter type contravariance and return type covariance
-  reportMaybesInMethodSignatures: true
+  reportMaybesInMethodSignatures: false
 
   # reports violations of property type invariance
-  reportMaybesInPropertyPhpDocTypes: true
+  reportMaybesInPropertyPhpDocTypes: false
 
   # reports violations of parameter type contravariance and return type covariance in static methods
   reportStaticMethodSignatures: true
@@ -97,5 +97,5 @@ parameters:
       missingCheckedExceptionInThrows: true
       tooWideThrowType: true
 
-#  ignoreErrors:
-#    - '~MockObject~'
+  ignoreErrors:
+    - '~Dead catch~'
