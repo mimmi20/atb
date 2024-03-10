@@ -31,7 +31,6 @@ return [
             \Mezzio\Router\LaminasRouter::class => \App\Container\RouterFactory::class,
             \App\Middleware\SetLocaleMiddleware::class => \App\Middleware\SetLocaleMiddlewareFactory::class,
             \App\Handler\HomePageHandler::class => \App\Handler\HomePageHandlerFactory::class,
-            \App\Handler\InfoPageHandler::class => \App\Handler\InfoPageHandlerFactory::class,
             Factory::class => InvokableFactory::class,
         ],
 

@@ -11,7 +11,6 @@
 declare(strict_types = 1);
 
 use App\Handler\HomePageHandler;
-use App\Handler\InfoPageHandler;
 use Fig\Http\Message\RequestMethodInterface;
 
 return [

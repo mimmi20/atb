@@ -1,8 +1,8 @@
 <?php
 /**
- * This file is part of the mimmi20/mezzio-sample-project package.
+ * This file is part of the mimmi20/atb package.
  *
- * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2024, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,6 +15,7 @@ namespace AppTest\Handler;
 use App\Handler\HomePageHandler;
 use Laminas\Diactoros\Exception\InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Form\Factory;
 use Mezzio\Template\TemplateRendererInterface;
 use PHPUnit\Framework\Constraint\ArrayHasKey;
 use PHPUnit\Framework\Exception;
@@ -46,7 +47,12 @@ final class HomePageHandlerTest extends TestCase
             ->expects(self::never())
             ->method('error');
 
-        $homePage = new HomePageHandler($renderer, $logger);
+        $formFactory = $this->createMock(Factory::class);
+        $formFactory
+            ->expects(self::never())
+            ->method('create');
+
+        $homePage = new HomePageHandler($renderer, $formFactory, $logger);
 
         $response = $homePage->handle(
             $this->createMock(ServerRequestInterface::class),
@@ -80,12 +86,17 @@ final class HomePageHandlerTest extends TestCase
             ->with(
                 $exception,
                 [
-                    'Page' => 'home-page',
-                    'File' => 'home-page',
+                    'Page' => null,
+                    'File' => 'src/App/config/forms/.config.php',
                 ],
             );
 
-        $homePage = new HomePageHandler($renderer, $logger);
+        $formFactory = $this->createMock(Factory::class);
+        $formFactory
+            ->expects(self::never())
+            ->method('create');
+
+        $homePage = new HomePageHandler($renderer, $formFactory, $logger);
 
         $response = $homePage->handle(
             $this->createMock(ServerRequestInterface::class),
