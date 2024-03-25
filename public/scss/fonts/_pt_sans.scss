@@ -1,0 +1,31 @@
+// Variables
+$font-family-path: '../../../fonts/PT_Sans-Web/';
+
+// PT Sans
+@font-face {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('PT Sans'), local('PTSans-Regular'), url('#{$font-family-path}PT_Sans-Web-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('PT Sans Bold'), local('PTSans-Bold'), url('#{$font-family-path}PT_Sans-Web-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: local('PT Sans Italic'), local('PTSans-Italic'), url('#{$font-family-path}PT_Sans-Web-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    font-style: italic;
+    font-weight: 700;
+    src: local('PT Sans Bold Italic'), local('PTSans-BoldItalic'), url('#{$font-family-path}PT_Sans-Web-BoldItalic.ttf') format('truetype');
+}

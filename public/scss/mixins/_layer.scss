@@ -1,0 +1,211 @@
+@use "sass:color";
+
+@use "../../../node_modules/bootstrap/scss/mixins/breakpoints";
+@use "../functions/functions" as internalFunctions;
+
+@mixin layer-transition-close($color: null, $darken: 5%) {
+    @if $color == null {
+        @error "Property #{$color} must be set.";
+    }
+
+    color: $color;
+    transition: color ease-in-out .3s;
+    opacity: 1;
+
+    &:hover {
+        color: color.adjust($color, $lightness: -$darken);
+    }
+}
+
+@mixin default-layer($type-icon-bg, $type-text-color, $type-text-text-decoration, $layer-bg, $content-font-size, $header-border, $close-transition-color, $close-transition-level, $close-transition-bg, $close-size, $headline-primary-color, $headline-secondary-color, $list-color, $text-weight, $grid-gutter-width, $danger, $success, $warning, $white) {
+
+    .info-layer-trigger {
+
+        &.type-icon {
+            height: internalFunctions.to-rem(16px);
+            width: internalFunctions.to-rem(16px);
+            cursor: pointer;
+            display: block;
+            background: $type-icon-bg;
+
+            &.left {
+                & + :is(.form-control, .form-select) {
+                    padding-left: internalFunctions.to-rem(35px);
+                }
+                top: internalFunctions.to-rem(20px);
+                left: internalFunctions.to-rem(5px);
+            }
+
+            &.right {
+                top: internalFunctions.to-rem(4px);
+                right: calc(#{$grid-gutter-width} / 2);
+            }
+        }
+
+        &.type-text {
+            color: $type-text-color;
+            text-decoration: $type-text-text-decoration;
+        }
+    }
+
+    .layer-checkbox {
+        position: absolute;
+        left: -999em;
+        visibility: hidden;
+    }
+
+    input:checked + .layer-default,
+    .layer-default.is-shown {
+        opacity: 1;
+        z-index: 1001;
+        visibility: visible;
+    }
+
+    .layer-default {
+        display: table;
+        table-layout: fixed;
+        height: 100vh;
+        width: 100%;
+        max-width: 100vw;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        opacity: 0;
+        visibility: hidden;
+        transition: all ease .3s;
+        text-align: center;
+        line-height: 1.5;
+        background-color: $layer-bg;
+
+        &.error-alert {
+            .message-content:after {
+                content: '';
+                width: 100%;
+                height: internalFunctions.to-rem(4px);
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+                background-color: transparent;
+            }
+
+            &.danger .message-content:after {
+                background-color: $danger;
+            }
+
+            &.success .message-content:after {
+                background-color: $success;
+            }
+
+            &.warning .message-content:after {
+                background-color: $warning;
+            }
+        }
+
+        .cell {
+            display: table-cell;
+            vertical-align: middle;
+
+            .message-content {
+                display: inline-block;
+                width: calc(100% - (#{$grid-gutter-width} / 2));
+                min-width: internalFunctions.to-rem(310px);
+                position: relative;
+                background-color: $white;
+                overflow: hidden;
+                text-align: left;
+                line-height: 1.5;
+                border-radius: internalFunctions.to-rem(5px);
+                font-size: $content-font-size;
+
+                .message-content-inner {
+                    max-height: calc(100vh - #{internalFunctions.to-rem(190px)});
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    padding: internalFunctions.to-rem(20px);
+                }
+
+                .message-content-header {
+                    padding: internalFunctions.to-rem(20px) internalFunctions.to-rem(20px) internalFunctions.to-rem(10px);
+                    position: relative;
+                    border: $header-border;
+
+                    .close {
+                        height: internalFunctions.to-rem(20px);
+                        width: internalFunctions.to-rem(20px);
+                        position: absolute;
+                        top: internalFunctions.to-rem(10px);
+                        right: internalFunctions.to-rem(10px);
+                        line-height: internalFunctions.to-rem(18px);
+                        border-radius: internalFunctions.to-rem(3px);
+                        cursor: pointer;
+                        text-align: center;
+
+                        @include layer-transition-close(
+                                $close-transition-color,
+                                $close-transition-level
+                        );
+
+                        background: $close-transition-bg;
+                        font-size: $close-size;
+                    }
+                }
+
+                .layer-text,
+                .layer-headline-primary,
+                .layer-headline-secondary {
+                    & + .layer-text,
+                    & + .layer-list {
+                        margin-top: internalFunctions.to-rem(15px);
+                    }
+                }
+
+                .layer-headline-primary {
+                    font-size: internalFunctions.to-rem(20px);
+                    color: $headline-primary-color;
+                }
+
+                .layer-text,
+                .layer-list {
+                    margin-bottom: 0;
+                    font-size: internalFunctions.to-rem(14px);
+                    color: $list-color;
+                }
+
+                .layer-headline-secondary {
+                    color: $headline-secondary-color;
+                }
+
+                .layer-text-question {
+                    font-weight: $text-weight;
+                }
+            }
+        }
+    }
+
+    @include breakpoints.media-breakpoint-up(md) {
+
+        .layer-default {
+            .cell {
+                .message-content {
+                    .layer-headline-primary {
+                        font-size: internalFunctions.to-rem(24px);
+                    }
+                }
+            }
+        }
+    }
+
+    @include breakpoints.media-breakpoint-up(lg) {
+
+        .layer-default {
+            .cell {
+                .message-content,
+                .message-content-header {
+                    width: internalFunctions.to-rem(620px);
+                }
+            }
+        }
+    }
+}

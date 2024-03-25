@@ -1,0 +1,55 @@
+@use "sass:math";
+
+// Variables
+@use "../../fonts/open_sans";
+@use "../../mixins/customize";
+@use "../../functions/functions" as internalFunctions;
+@use "variables";
+@use "../../../../node_modules/bootstrap/scss/bootstrap" with (
+    $grid-breakpoints: variables.$grid-breakpoints,
+    $container-max-widths: variables.$container-max-widths,
+    $blue: variables.$blue,
+    $purple: variables.$purple,
+    $pink: variables.$pink,
+    $red: variables.$red,
+    $orange: variables.$orange,
+    $yellow: variables.$yellow,
+    $green: variables.$green,
+    $teal: variables.$teal,
+    $primary: variables.$primary,
+    $secondary: variables.$secondary,
+    $success: variables.$success,
+    $info: variables.$info,
+    $warning: variables.$warning,
+    $danger: variables.$danger,
+    $font-family-sans-serif: variables.$font-family-sans-serif,
+    $font-family-base: variables.$font-family-base,
+    $font-weight-light: variables.$font-weight-light,
+    $font-weight-bold: variables.$font-weight-bold,
+    $white: variables.$white,
+    $gray-100: variables.$gray-1,
+    $gray-200: variables.$gray-2,
+    $gray-300: variables.$gray-3,
+    $gray-400: variables.$gray-4,
+    $gray-500: variables.$gray-5,
+    $gray-600: variables.$gray-6,
+    $gray-700: variables.$gray-7,
+    $gray-800: variables.$gray-8,
+    $gray-900: variables.$gray-9,
+    $black: variables.$black,
+    $body-bg: variables.$body-bg,
+    $body-color: variables.$body-color,
+    $link-color: variables.$link-color,
+    $link-hover-color: variables.$link-hover-color,
+    $btn-link-disabled-color: variables.$btn-link-disabled-color,
+    $link-color: variables.$link-color,
+    $link-color: variables.$link-color,
+);
+@include customize.customize(
+    $body-color: variables.$white,
+    $headline-primary-color: variables.$primary,
+    $headline-secondary-color: variables.$primary,
+    $headline-primary-font-size: internalFunctions.to-rem(24px),
+    $headline-secondary-font-size: internalFunctions.to-rem(14px),
+);
+

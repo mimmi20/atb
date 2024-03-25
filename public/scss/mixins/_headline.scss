@@ -1,0 +1,11 @@
+
+@use "../functions/functions" as internalFunctions;
+
+@mixin headline($font-size, $font-weight) {
+    .result-container {
+        .headline {
+            font-size: $font-size;
+            font-weight: $font-weight;
+        }
+    }
+}

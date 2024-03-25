@@ -1,0 +1,261 @@
+
+@use "../../../node_modules/bootstrap/scss/functions";
+@use "../../../node_modules/bootstrap/scss/mixins/breakpoints";
+@use "../functions/functions" as internalFunctions;
+
+//// Reset Form Validatestates
+
+@mixin form($formColor, $labelColor, $formBorderColor, $formDisabledColor, $formDisabledBackgroundColor, $imageBackgroundColor, $buttonHoverBackgroundColor, $tippColor, $gray-3, $white, $danger, $primary, $buttonBorderRadius: null, $formDisabledBorderColor: null, $labelBorderWidth: null, $buttonColor: null, $tippMarginBottom: null, $tippFontSize: null) {
+    .form-default {
+
+        .form-select {
+            color: $formColor;
+            border-width: internalFunctions.to-rem(1px);
+            border-color: $formBorderColor;
+
+            background-image: functions.str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 3.51 2.46'%3E%3Cpolygon fill='#{$formColor}' points='0 0 3.51 0 1.75 2.46 0 0'%3E%3C/polygon%3E%3C/svg%3E"), "#", "%23");
+            background-repeat: no-repeat;
+            background-position: calc(100% - #{internalFunctions.to-rem(14px)}) center;
+            background-size: internalFunctions.to-rem(10px);
+
+            &:focus {
+                border-color: $gray-3;
+                background-color: $white;
+            }
+
+            &:disabled {
+                color: $formDisabledColor;
+
+                @if $formDisabledBorderColor {
+                    border-color: $formDisabledBorderColor;
+                }
+
+                &:not([multiple]) {
+                    background-image: functions.str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 3.51 2.46'%3E%3Cpolygon fill='#{$formDisabledBackgroundColor}' points='0 0 3.51 0 1.75 2.46 0 0'%3E%3C/polygon%3E%3C/svg%3E"), "#", "%23");
+                }
+
+                option {
+                    color: $formDisabledColor;
+                }
+            }
+
+            &.form-control-danger {
+                color: $danger;
+                border-bottom: none;
+                -webkit-box-shadow: inset 0 0 internalFunctions.to-rem(3px) 0 $danger;
+                -moz-box-shadow: inset 0 0 internalFunctions.to-rem(3px) 0 $danger;
+                box-shadow: inset 0 0 internalFunctions.to-rem(3px) 0 $danger;
+            }
+        }
+
+        .custom-checkbox {
+
+            .custom-control-label {
+                color: $labelColor;
+
+                &:before {
+                    background-color: $white;
+                    border-color: $formBorderColor;
+
+                    @if $labelBorderWidth {
+                        border-width: $labelBorderWidth;
+                    }
+                }
+            }
+
+            .custom-control-input:checked ~ .custom-control-label {
+                &:before {
+                    background-color: $white;
+                }
+                &:after {
+                    background-image: functions.str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='#{$imageBackgroundColor}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"), "#", "%23");
+                    background-size: 75% 75%;
+                }
+            }
+        }
+
+        .button-group {
+
+            .btn {
+                background: $primary;
+
+                @if $buttonBorderRadius {
+                    border-radius: $buttonBorderRadius;
+                }
+
+                @if $buttonColor {
+                    color: $buttonColor;
+                }
+
+                &:hover {
+                    background-color: $buttonHoverBackgroundColor;
+                }
+            }
+        }
+
+        // Tip
+        .tipp {
+            @if $tippMarginBottom {
+                margin-bottom: $tippMarginBottom;
+            }
+
+            color: $tippColor;
+
+            @if $tippFontSize {
+                font-size: $tippFontSize;
+            }
+        }
+    }
+}
+
+@mixin default-form($white, $primary) {
+
+    :invalid {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .form-default {
+        width: 100%;
+
+        .form-label {
+            margin-bottom: 0;
+            font-size: internalFunctions.to-rem(14px);
+
+            &.align-items-center {
+                line-height: 1.8rem;
+                display: flex;
+            }
+
+            sup {
+                font-size: internalFunctions.to-rem(14px);
+                top: internalFunctions.to-rem(-5px);
+            }
+        }
+
+        .form-select {
+            appearance: none;
+            height: internalFunctions.to-rem(50px);
+            padding: internalFunctions.to-rem(10px) internalFunctions.to-rem(30px) internalFunctions.to-rem(10px) internalFunctions.to-rem(10px);
+            font-size: internalFunctions.to-rem(16px);
+            background-color: $white;
+            border-radius: 0;
+        }
+
+        .form-select[multiple] {
+            height: internalFunctions.to-rem(135px);
+            background: none;
+            overflow-y: auto;
+
+            option {
+                padding-bottom: internalFunctions.to-rem(3px);
+                &:first-child {
+                    padding-bottom: internalFunctions.to-rem(8px);
+                }
+            }
+        }
+
+        .checkbox-group {
+            margin-left: internalFunctions.to-rem(10px);
+            margin-right: internalFunctions.to-rem(10px);
+        }
+
+        .custom-checkbox {
+            &:not(:last-child) {
+                margin-bottom: internalFunctions.to-rem(16px);
+            }
+
+            .custom-control-label {
+                font-size: internalFunctions.to-rem(18px);
+
+                &:before {
+                    top: internalFunctions.to-rem(6px);
+                    border: internalFunctions.to-rem(2px) solid;
+                    border-radius: 0;
+                }
+            }
+
+            .custom-control-input {
+                bottom: 0;
+                left: internalFunctions.to-rem(2px);
+            }
+
+            .custom-control-input:checked ~ .custom-control-label {
+                &:after {
+                    top: internalFunctions.to-rem(6px);
+                }
+            }
+        }
+
+        .button-group {
+            margin-top: internalFunctions.to-rem(30px);
+
+            .btn {
+                width: 100%;
+                max-width: internalFunctions.to-rem(375px);
+                padding: internalFunctions.to-rem(18px) internalFunctions.to-rem(24px);
+                background: $primary;
+                border: none;
+                border-radius: internalFunctions.to-rem(4px);
+            }
+        }
+
+        // Tip
+        .tipp {
+            margin-top: internalFunctions.to-rem(10px);
+            margin-bottom: internalFunctions.to-rem(10px);
+            padding-left: internalFunctions.to-rem(10px);
+            font-size: internalFunctions.to-rem(14px);
+
+            & + .row + .tipp {
+                margin-bottom: internalFunctions.to-rem(16px);
+            }
+        }
+
+        // Loading selects
+        .row {
+            position: relative;
+            margin-bottom: internalFunctions.to-rem(10px);
+
+            select + .spinner-border {
+                width: internalFunctions.to-rem(20px);
+                height: internalFunctions.to-rem(20px);
+                position: absolute;
+                right: internalFunctions.to-rem(50px);
+                top: calc(50% - #{internalFunctions.to-rem(10px)});
+                z-index: 2;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity ease .3s;
+
+                &.active {
+                    opacity: .3;
+                    visibility: visible;
+                }
+            }
+        }
+
+        // loading btn
+        .loading-btn {
+            .spinner-grow {
+                display: none;
+            }
+
+            &.active {
+                .spinner-grow {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    @include breakpoints.media-breakpoint-up(md) {
+
+        .form-default {
+
+            .form-select {
+                padding: internalFunctions.to-rem(10px) internalFunctions.to-rem(30px) internalFunctions.to-rem(10px) internalFunctions.to-rem(20px);
+            }
+        }
+    }
+}

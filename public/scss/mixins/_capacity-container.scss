@@ -1,0 +1,27 @@
+
+@use "../functions/functions" as internalFunctions;
+
+@mixin capacityContainer($font-size, $color, $current-rate-color, $best-rate-color) {
+    .result-container {
+        .capacity-container {
+            .text {
+                padding-bottom: internalFunctions.to-rem(25px);
+                font-size: $font-size;
+                color: $color;
+            }
+
+            .current-rate,
+            .best-rate {
+                padding-bottom: internalFunctions.to-rem(50px);
+            }
+
+            .current-rate {
+                color: $current-rate-color;
+            }
+
+            .best-rate {
+                color: $best-rate-color;
+            }
+        }
+    }
+}
