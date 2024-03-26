@@ -4,26 +4,29 @@ $font-family-path: '../../fonts/Quicksand/';
 // Quicksand
 
 @font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Quicksand Light'), local('Quicksand-Light'), url('#{$font-family-path}Quicksand-Light.ttf') format('truetype');
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Quicksand Light'), local('Quicksand-Light'), url('#{$font-family-path}Quicksand-Light.ttf') format('truetype');
 }
+
 @font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Quicksand Regular'), local('Quicksand-Regular'), url('#{$font-family-path}Quicksand-Regular.ttf') format('truetype');
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Quicksand Regular'), local('Quicksand-Regular'), url('#{$font-family-path}Quicksand-Regular.ttf') format('truetype');
 }
+
 @font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 600;
-  src: local('Quicksand Medium'), local('Quicksand-Medium'), url('#{$font-family-path}Quicksand-Medium.ttf') format('truetype');
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Quicksand Medium'), local('Quicksand-Medium'), url('#{$font-family-path}Quicksand-Medium.ttf') format('truetype');
 }
+
 @font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Quicksand Bold'), local('Quicksand-Bold'), url('#{$font-family-path}Quicksand-Bold.ttf') format('truetype');
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Quicksand Bold'), local('Quicksand-Bold'), url('#{$font-family-path}Quicksand-Bold.ttf') format('truetype');
 }
