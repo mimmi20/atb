@@ -1,0 +1,80 @@
+
+@use "../../../../node_modules/bootstrap/scss/functions";
+@use "../../functions/functions" as internalFunctions;
+
+//// Reset Form Validatestates
+
+.form-default {
+
+    .form-select {
+        color: $gray-4;
+        border-color: $gray-2;
+
+        background-image: functions.str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='21' height='32' viewBox='0 0 21 32'%3E%3Cpath d='M19.196 13.143q0 0.232-0.179 0.411l-8.321 8.321q-0.179 0.179-0.411 0.179t-0.411-0.179l-8.321-8.321q-0.179-0.179-0.179-0.411t0.179-0.411l0.893-0.893q0.179-0.179 0.411-0.179t0.411 0.179l7.018 7.018 7.018-7.018q0.179-0.179 0.411-0.179t0.411 0.179l0.893 0.893q0.179 0.179 0.179 0.411z'%3E%3C/path%3E%3C/svg%3E"), "#", "%23");
+        background-repeat: no-repeat;
+        background-position: calc(100% - #{internalFunctions.to-rem(14px)}) center;
+        background-size: internalFunctions.to-rem(10px);
+
+        &:focus {
+            border-color: $gray-3;
+            background-color: $white;
+        }
+
+        &:disabled {
+            color: $gray-2;
+
+            &:not([multiple]) {
+                background-image: functions.str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='21' height='32' viewBox='0 0 21 32'%3E%3Cpath fill='#{$gray-2}' d='M19.196 13.143q0 0.232-0.179 0.411l-8.321 8.321q-0.179 0.179-0.411 0.179t-0.411-0.179l-8.321-8.321q-0.179-0.179-0.179-0.411t0.179-0.411l0.893-0.893q0.179-0.179 0.411-0.179t0.411 0.179l7.018 7.018 7.018-7.018q0.179-0.179 0.411-0.179t0.411 0.179l0.893 0.893q0.179 0.179 0.179 0.411z'%3E%3C/path%3E%3C/svg%3E"), "#", "%23");
+            }
+
+            option {
+                color: $gray-2;
+            }
+        }
+
+        &.form-control-danger {
+            color: $danger;
+            border-bottom: none;
+            -webkit-box-shadow: inset 0 0 internalFunctions.to-rem(3px) 0 $danger;
+            -moz-box-shadow: inset 0 0 internalFunctions.to-rem(3px) 0 $danger;
+            box-shadow: inset 0 0 internalFunctions.to-rem(3px) 0 $danger;
+        }
+    }
+
+
+    .custom-checkbox {
+
+        .custom-control-label {
+            color: $gray-4;
+
+            &:before {
+                background-color: $white;
+                border-color: $gray-2;
+            }
+        }
+
+        .custom-control-input:checked ~ .custom-control-label {
+            &:before {
+                background-color: $white;
+            }
+            &:after {
+                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23005e98' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+                background-size: 75% 75%;
+            }
+        }
+    }
+
+    .button-group {
+        .btn {
+            background: $primary;
+            &:hover {
+                background-color: $blue-hover;
+            }
+        }
+    }
+
+    // Tip
+    .tipp {
+        color: $cyan;
+    }
+}

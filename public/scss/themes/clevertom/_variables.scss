@@ -1,0 +1,146 @@
+
+@use "../../../../node_modules/bootstrap/scss/functions";
+@use "../../functions/functions" as internalFunctions;
+
+/* fonts */
+
+$font-family-sans-serif: "Open Sans", sans-serif;
+$font-family-base:       $font-family-sans-serif;
+$font-weight-light:      300;
+$font-weight-bold:       700;
+
+/* grid */
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 667px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+$container-max-widths: (
+    sm: 667px,
+    md: 768px,
+    lg: 992px,
+    xl: 1240px
+);
+
+/* colors */
+
+$white:   #ffffff;
+$gray-1:  #f9f9fb;
+$gray-2:  #f5f6f9;
+$gray-3:  #eff1f5;
+$gray-4:  #eceef3;
+$gray-5:  #d4d6da;
+$gray-6:  #bcbec2;
+$gray-7:  #8d8e91;
+$gray-8:  #5e5f61;
+$gray-9:  #3d3d3d;
+$gray-10: #222222;
+$black:   #000000;
+
+$blue:       #0d2565;
+$purple:     #613d7c;
+$pink:       #ff5b77;
+$red:        #ff2000;
+$orange:     functions.tint-color(#fe9808, 20%);
+$yellow:     #ffd500;
+$green:      #8dc63f;
+$teal:       #20c997;
+
+$primary:   $blue;
+$secondary: #cdeef2;
+$success:   $green;
+$info:      internalFunctions.rgba-blend(rgba($blue, .7));
+$warning:   $orange;
+$danger:    $red;
+
+$body-bg:                 $white;
+$body-color:              $blue;
+$link-color:              $blue;
+$link-hover-color:        $blue;
+$btn-link-disabled-color: functions.tint-color($primary, 30%);
+$btn-hover:               $blue;
+
+/* variables in elements */
+
+$result-container: (
+    color:    $blue,
+    bg:       $white,
+    hr-color: $blue
+);
+
+$result-headline: (
+    font-size:   internalFunctions.to-rem(14px),
+    font-weight: 600
+);
+
+$capacity-container: (
+    font-size:          internalFunctions.to-rem(18px),
+    color:              $gray-7,
+    current-rate-color: functions.shade-color($secondary, 15%),
+    best-rate-color:    $primary
+);
+
+$progress-chart: (
+    bg:                      $gray-4,
+    transition:              width 1s ease-out 1s,
+    current-rate-bg:         functions.shade-color($secondary, 10%),
+    current-rate-color:      functions.shade-color($secondary, 15%),
+    current-rate-less-bg:    $orange,
+    current-rate-less-color: $orange,
+    best-rate-bg:            $primary,
+    best-rate-color:         $primary,
+    font-size:               internalFunctions.to-rem(14px)
+);
+
+$addition: (
+    bg: $gray-1
+);
+
+$circle-chart: (
+    stroke-width:             1.5,
+    secondary-stroke:         $orange,
+    secondary-stroke-linecap: round,
+    secondary-bg-stroke:      $gray-5,
+    primary-stroke:           $primary,
+    primary-stroke-linecap:   round,
+    primary-bg-stroke:        $gray-4,
+    animation-name:           progress
+);
+
+$percentage: (
+    font-size:       internalFunctions.to-rem(36px),
+    text-align:      center,
+    span-font-size:  internalFunctions.to-rem(20px),
+    secondary-color: functions.shade-color($secondary, 10%),
+    primary-color:   $primary
+);
+
+$accordion: (
+    bg:                  functions.str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' style='fill: #{$blue}' width='1024' height='1024' viewBox='0 0 1024 1024'%3E%3Cpath d='M0 285l512 411.33 512-411v42l-512 411.67-512-411.66z'%3E%3C/path%3E%3C/svg%3E"), "#", "%23") no-repeat center / contain,
+    transition:          transform ease .2s,
+    max-height-transion: max-height ease .4s,
+    trigger-font-size:   internalFunctions.to-rem(14px),
+    header-font-size:    internalFunctions.to-rem(14px),
+    header-color:        $gray-7
+);
+
+$layer: (
+    type-icon-bg:              functions.str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' width='1024' height='1024' viewBox='0 0 1024 1024'%3E%3Cpath d='M447.822 449.536h128v319.488h-128v-319.488zM447.822 257.706h128v128h-128v-128zM511.993 0c-282.767 0.004-511.993 229.233-511.993 512 0 282.77 229.23 512 512 512s512-229.23 512-512c0-0.96-0.003-1.92-0.008-2.879-1.549-281.445-230.182-509.121-511.992-509.121-0.003 0-0.005 0-0.008 0zM511.993 943.445c-241.297 0-436.907-195.61-436.907-436.907s195.61-436.907 436.907-436.907c241.297 0 436.907 195.61 436.907 436.907s-195.61 436.907-436.907 436.907z' fill='#{$gray-7}' %3E%3C/path%3E%3C/svg%3E"), "#", "%23") no-repeat center / contain,
+    type-text-color:           $primary,
+    type-text-text-decoration: underline,
+    layer-bg:                  rgba($black, .4),
+    header-border:             1px solid $gray-3,
+    text-weight:               $font-weight-bold,
+    content-font-size:         internalFunctions.to-rem(14px),
+    close-transition-color:    $white,
+    close-transition-level:    5%,
+    close-transition-bg:       $primary,
+    close-size:                internalFunctions.to-rem(22px),
+    headline-primary-color:    $primary,
+    headline-secondary-color:  $gray-7,
+    list-color:                $gray-7
+);

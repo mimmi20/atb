@@ -1,0 +1,34 @@
+@use "sass:math";
+
+// Variables
+@use "../../fonts/quicksand";
+@use "../../mixins/customize";
+@use "../../functions/functions" as internalFunctions;
+@use "variables";
+@use "../../../../node_modules/bootstrap/scss/bootstrap" with (
+    $grid-breakpoints: variables.$grid-breakpoints,
+    $container-max-widths: variables.$container-max-widths,
+    $orange: variables.$orange,
+    $primary: variables.$primary,
+    $secondary: variables.$secondary,
+    $font-family-sans-serif: variables.$font-family-sans-serif,
+    $font-family-base: variables.$font-family-base,
+    $font-weight-bold: variables.$font-weight-bold,
+    $white: variables.$white,
+    $gray-100: variables.$gray-1,
+    $gray-200: variables.$gray-2,
+    $gray-300: variables.$gray-3,
+    $gray-400: variables.$gray-4,
+    $gray-500: variables.$gray-5,
+    $gray-600: variables.$gray-6,
+    $gray-700: variables.$gray-7,
+    $black: variables.$black,
+);
+@include customize.customize(
+    $body-color: null,
+    $headline-primary-font-size: internalFunctions.to-rem(26px),
+    $headline-secondary-font-size: internalFunctions.to-rem(16px),
+    $headline-primary-color: variables.$primary,
+    $headline-secondary-color: variables.$gray-7,
+);
+

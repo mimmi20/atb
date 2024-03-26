@@ -21,6 +21,7 @@ module.exports = function (ctx) {
       //require('postcss-prefixwrap')('.base-container'),// no prefix here, will be added in the next step
       //require('postcss-prefix-selector')(),
       //require('postcss-modules'),
+      require('postcss-rtl-logical-properties'),
       require('postcss-preset-env')({
         'stage': 2,
         'minimumVendorImplementations': 0,
@@ -34,6 +35,7 @@ module.exports = function (ctx) {
           'custom-selectors': {'preserve': true},
           'dir-pseudo-class': {'preserve': true}, // allows using ":dir" pseudo class
           'display-two-values': {'preserve': true},
+          'float-clear-logical-values': true,
           'focus-visible-pseudo-class': {'preserve': true}, // allows using ":focus-visible" pseudo class
           'focus-within-pseudo-class': {'preserve': true}, // allows using ":focus-within" pseudo class
           'font-format-keywords': {'preserve': true},
@@ -41,6 +43,11 @@ module.exports = function (ctx) {
           'hexadecimal-alpha-notation': {'preserve': true},
           'image-set-function': {'preserve': true, 'onInvalid': 'warning'}, // allows using "image-set()" function
           'is-pseudo-class': false, // allows using ":is" pseudo class
+          'logical-overflow': {'preserve': true},
+          'logical-overscroll-behavior': {'preserve': true},
+          'logical-properties-and-values': {'preserve': true},
+          'logical-resize': {'preserve': true},
+          'logical-viewport-units': {'preserve': true},
           'media-query-ranges': true,
           'nested-calc': {'preserve': true},
           'nesting-rules': {'noIsPseudoSelector': false},
@@ -57,6 +64,8 @@ module.exports = function (ctx) {
         'autoprefixer': {'grid': true},
         'preserve': true
       }),
+      require('postcss-pxtorem')({mediaQuery: true, propList: ['*']}),
+      require('css-declaration-sorter')({keepOverrides: true, order: 'smacss'}),
       ctx.env === 'production' ? require('cssnano')({
         preset: 'default',
         safe: true,

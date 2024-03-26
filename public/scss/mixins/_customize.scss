@@ -1,0 +1,62 @@
+
+@use "../../../node_modules/bootstrap/scss/mixins/breakpoints";
+@use "../functions/functions" as internalFunctions;
+
+@mixin customize($body-color: null, $headline-primary-color, $headline-secondary-color, $headline-primary-font-size, $headline-secondary-font-size, $default-link: false, $default-link-color: null, $default-link-hover-color: null) {
+
+    @if $body-color {
+        body {
+            background-color: $body-color;
+        }
+    }
+
+    @if $default-link {
+        a.default-link {
+            color: $default-link-color;
+
+            &:hover {
+                color: $default-link-hover-color;
+            }
+        }
+    }
+
+    .text-container {
+        .headline-primary,
+        .headline-secondary {
+            text-align: center;
+        }
+
+        .headline-primary {
+            margin-bottom: internalFunctions.to-rem(40px);
+            font-size: $headline-primary-font-size;
+            color: $headline-primary-color;
+        }
+
+        .headline-secondary {
+            margin-bottom: internalFunctions.to-rem(20px);
+            font-size: $headline-secondary-font-size;
+            color: $headline-secondary-color;
+
+            &:last-child {
+                margin-bottom: internalFunctions.to-rem(55px);
+            }
+        }
+    }
+
+    @include breakpoints.media-breakpoint-up(md) {
+
+        .form-container > [data-step="result"] .result-container {
+            padding-top: internalFunctions.to-rem(40px);
+            padding-left: internalFunctions.to-rem(50px);
+            padding-right: internalFunctions.to-rem(50px);
+        }
+    }
+
+    @include breakpoints.media-breakpoint-up(lg) {
+
+        .form-container > [data-step="result"] .result-container {
+            padding-left: internalFunctions.to-rem(90px);
+            padding-right: internalFunctions.to-rem(90px);
+        }
+    }
+}

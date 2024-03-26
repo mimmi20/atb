@@ -1,0 +1,26 @@
+
+@use "../functions/functions" as internalFunctions;
+
+
+@mixin percentage($text-align, $font-size, $span-font-size, $primary-color, $secondary-color) {
+    .percentage {
+        text-align: $text-align;
+        font-size: $font-size;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: calc(50% - #{internalFunctions.to-rem(31px)});
+
+        span {
+            font-size: $span-font-size;
+        }
+
+        &.primary {
+            color: $primary-color;
+        }
+
+        &.secondary {
+            color: $secondary-color;
+        }
+    }
+}
