@@ -43,11 +43,6 @@ final class HomePageHandler implements RequestHandlerInterface
     /** @throws InvalidArgumentException */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $layout = new ViewModel(
-            ['request' => $request],
-        );
-        $layout->setTemplate('layout::default');
-
         $id = $request->getAttribute('id');
 
         assert(is_string($id) || $id === null);
