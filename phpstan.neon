@@ -126,7 +126,6 @@ rules:
   # - Symplify\PHPStanRules\Rules\Explicit\NoRelativeFilePathRule
   # - Symplify\PHPStanRules\Rules\NoReturnArrayVariableListRule # todo: fix
 
-  - Symplify\PHPStanRules\Rules\NoProtectedClassElementRule
   - Symplify\PHPStanRules\Rules\ForbiddenExtendOfNonAbstractClassRule
   - Symplify\PHPStanRules\Rules\Complexity\ForbiddenSameNamedNewInstanceRule
 
