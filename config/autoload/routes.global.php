@@ -14,18 +14,18 @@ use App\Handler\HomePageHandler;
 use Fig\Http\Message\RequestMethodInterface;
 
 return [
-    'routes' => [
-        'startpage' => [
-            'path' => '/',
-            'middleware' => [
-                HomePageHandler::class,
-            ],
-            'allowed_methods' => [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
-            'options' => [
-                'defaults' => [
-                    'id' => 'atb',
-                ],
-            ],
-        ],
-    ],
+//    'routes' => [
+//        'startpage' => [
+//            'path' => '/',
+//            'middleware' => [
+//                HomePageHandler::class,
+//            ],
+//            'allowed_methods' => [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+//            'options' => [
+//                'defaults' => [
+//                    'id' => 'atb',
+//                ],
+//            ],
+//        ],
+//    ],
 ];

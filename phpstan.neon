@@ -14,6 +14,9 @@ parameters:
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/autoload.php
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
 
+  stubFiles:
+    - vendor/mimmi20/coding-standard/stubs/psr/container/ContainerInterface.stub
+
   # reports occurrences of type-checking functions always evaluated to true
   checkAlwaysTrueCheckTypeFunctionCall: false # todo: fix
 
@@ -118,6 +121,7 @@ parameters:
 
   ignoreErrors:
     - '~Dead catch~'
+    - '~is never read, only written~'
 
 rules:
   # code complexity
