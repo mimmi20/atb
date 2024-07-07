@@ -41,6 +41,7 @@
     "mezzio/mezzio-laminasrouter": "^3.9.0",
     "mezzio/mezzio-laminasviewrenderer": "^2.15.1",
     "mezzio/mezzio-router": "^3.17.0",
+    "middlewares/response-time": "^2.0.1",
     "mimmi20/laminas-form-element-group": "^3.0.9",
     "mimmi20/laminas-form-element-links": "^2.0.8",
     "mimmi20/laminas-form-element-paragraph": "^2.0.8",
