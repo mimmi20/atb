@@ -22,9 +22,12 @@ use Mezzio\Router\Middleware\ImplicitOptionsMiddleware;
 use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
 use Mezzio\Router\Middleware\RouteMiddlewareFactory;
 use Mezzio\Router\RouterInterface;
+use Middlewares\ResponseTime;
 use Mimmi20\Mezzio\Middleware\SetLocaleMiddleware;
 use Mimmi20\Mezzio\Navigation\NavigationMiddleware;
 use Psr\Container\ContainerInterface;
+use function Laminas\Stratigility\host;
+use function Laminas\Stratigility\path;
 
 /**
  * Setup middleware pipeline
@@ -56,7 +59,9 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     // - $app->pipe('/files', $filesMiddleware);
 
     $app->pipe(SetLocaleMiddleware::class);
+    $app->pipe(ResponseTime::class);
 
-    $app->pipe('/admin', 'admin-pipeline');
-    $app->pipe('/', 'default-pipeline');
+    $app->pipe(path('/admin', $factory->lazy('admin-pipeline')));
+    $app->pipe(path('/', $factory->lazy('default-pipeline')));
+    $app->pipe(host('admin.example.org', path('/admin', $factory->lazy('admin-pipeline'))));
 };
