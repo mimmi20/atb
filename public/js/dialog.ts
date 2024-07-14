@@ -7,7 +7,7 @@ class Dialog {
       const layerId = layerTrigger.getAttribute('data-layer');
 
       if (layerId === null) {
-        console.error('no layer-id')
+        console.error('no layer-id');
         return;
       }
 
@@ -25,10 +25,23 @@ class Dialog {
         event.stopPropagation();
 
         dialog.showModal();
-        dialog.setAttribute('aria-hidden', 'false')
+        dialog.setAttribute('aria-hidden', 'false');
       });
 
       that.initDialog(dialog);
+    });
+  }
+
+  initPopover(): void {
+    const popoverTriggers = document.querySelectorAll<HTMLElement>('[popovertarget]');
+
+    popoverTriggers.forEach(function(popoverTrigger: HTMLElement): void {
+      popoverTrigger.addEventListener('click', (event: Event): void => {
+        console.log(`Button was clicked`);
+
+        event.preventDefault();
+        event.stopPropagation();
+      });
     });
   }
 
@@ -41,13 +54,14 @@ class Dialog {
         event.stopPropagation();
 
         dialog.close();
-        dialog.setAttribute('aria-hidden', 'true')
+        dialog.setAttribute('aria-hidden', 'true');
       });
     });
   }
 
   init(): void {
     this.initLayer();
+    this.initPopover();
   }
 }
 

@@ -19,7 +19,8 @@
 
 @mixin default-layer($type-icon-bg, $type-text-color, $type-text-text-decoration, $layer-bg, $content-font-size, $header-border, $close-transition-color, $close-transition-level, $close-transition-bg, $close-size, $headline-primary-color, $headline-secondary-color, $list-color, $text-weight, $grid-gutter-width, $danger, $success, $warning, $white) {
 
-    .info-layer-trigger {
+    .info-layer-trigger,
+    [popovertarget] {
 
         &.type-icon {
             height: internalFunctions.to-rem(16px);

@@ -106,7 +106,7 @@ updates:
     labels:
       - "dependencies"
 
-    versioning-strategy: "widen"
+    versioning-strategy: "increase"
 
     target-branch: "master"
 
