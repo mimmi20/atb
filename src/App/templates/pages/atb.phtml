@@ -52,7 +52,7 @@ $form->prepare();
                 </div>
 
                 <div class="col-12 position-relative">
-                    <button class="btn info-layer-trigger position-absolute top-0 end-0 icon" data-layer="info-layer-year"><i class="bi bi-info-circle"></i></button>
+                    <button class="position-absolute top-0 end-0" popovertarget="info-layer-year" popovertargetaction="show" form="">?</button>
                     <fieldset class="col-12 position-relative" data-name="year" disabled>
                         <legend class="form-label position-relative pe-4">Tarifstand</legend>
                         <select class="form-select" name="year" id="year" data-next="product" required aria-label="Tarifstand" autocomplete="off">
@@ -275,7 +275,7 @@ $form->prepare();
         </div>
     </div>
 </dialog>
-<dialog class="modal" id="info-layer-year" aria-hidden="true" aria-labelledby="modal-title-tariff" role="dialog">
+<div id="info-layer-year" popover="auto">
     <div class="modal-dialog">
         <div class="modal-content">
             <header class="modal-header">
@@ -289,7 +289,7 @@ $form->prepare();
             </section>
         </div>
     </div>
-</dialog>
+</div>
 
 <?php //layer ?>
 <dialog class="modal" id="info-layer-topic1" aria-hidden="true" aria-labelledby="modal-title-topic1" role="dialog">
