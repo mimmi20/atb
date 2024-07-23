@@ -73,7 +73,7 @@
     "filp/whoops": "^2.15.4",
     "infection/infection": "^0.27.11 || ^0.28.1 || ^0.29.0",
     "mezzio/mezzio-tooling": "^2.9.0",
-    "mimmi20/coding-standard": "^5.2.36",
+    "mimmi20/coding-standard": "^5.2.37",
     "nikic/php-parser": "^4.19.1 || ^5.0.2",
     "phpstan/extension-installer": "^1.4.1",
     "phpstan/phpstan": "^1.11.7",
