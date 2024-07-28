@@ -95,7 +95,7 @@
     "stylelint-use-logical": "^2.1.2",
     "supports-color": "^7.2.0 || ^9.0.0",
     "typescript": "^5.5.4",
-    "vite": "^5.3.4",
+    "vite": "^5.3.5",
     "vite-plugin-dts": "^3.9.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-stylelint": "^5.3.1",
