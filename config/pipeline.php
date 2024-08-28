@@ -20,8 +20,14 @@ use Mezzio\Router\Middleware\DispatchMiddleware;
 use Mezzio\Router\Middleware\ImplicitHeadMiddleware;
 use Mezzio\Router\Middleware\ImplicitOptionsMiddleware;
 use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
-use Mezzio\Router\Middleware\RouteMiddleware;
+use Mezzio\Router\Middleware\RouteMiddlewareFactory;
+use Mezzio\Router\RouterInterface;
+use Middlewares\ResponseTime;
+use Mimmi20\Mezzio\Middleware\SetLocaleMiddleware;
+use Mimmi20\Mezzio\Navigation\NavigationMiddleware;
 use Psr\Container\ContainerInterface;
+use function Laminas\Stratigility\host;
+use function Laminas\Stratigility\path;
 
 /**
  * Setup middleware pipeline
@@ -52,38 +58,10 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     // - $app->pipe('/docs', $apiDocMiddleware);
     // - $app->pipe('/files', $filesMiddleware);
 
-    $app->pipe(\App\Middleware\SetLocaleMiddleware::class);
-    $app->pipe(\Mimmi20\Mezzio\Navigation\NavigationMiddleware::class);
+    $app->pipe(SetLocaleMiddleware::class);
+    $app->pipe(ResponseTime::class);
 
-    // Register the routing middleware in the middleware pipeline.
-    // This middleware registers the Mezzio\Router\RouteResult request attribute.
-    $app->pipe((new \Mezzio\Router\Middleware\RouteMiddlewareFactory(\Mezzio\Router\RouterInterface::class))($container));
-
-    // The following handle routing failures for common conditions:
-    // - HEAD request but no routes answer that method
-    // - OPTIONS request but no routes answer that method
-    // - method not allowed
-    // Order here matters; the MethodNotAllowedMiddleware should be placed
-    // after the Implicit*Middleware.
-    $app->pipe(ImplicitHeadMiddleware::class);
-    $app->pipe(ImplicitOptionsMiddleware::class);
-    $app->pipe(MethodNotAllowedMiddleware::class);
-
-    // Seed the UrlHelper with the routing results:
-    $app->pipe(UrlHelperMiddleware::class);
-
-    // Add more middleware here that needs to introspect the routing results; this
-    // might include:
-    //
-    // - route-based authentication
-    // - route-based validation
-    // - etc.
-
-    // Register the dispatch middleware in the middleware pipeline
-    $app->pipe(DispatchMiddleware::class);
-
-    // At this point, if no Response is returned by any middleware, the
-    // NotFoundHandler kicks in; alternately, you can provide other fallback
-    // middleware to execute.
-    $app->pipe(NotFoundHandler::class);
+    $app->pipe(path('/admin', $factory->lazy('admin-pipeline')));
+    $app->pipe(path('/', $factory->lazy('default-pipeline')));
+    $app->pipe(host('admin.example.org', path('/admin', $factory->lazy('admin-pipeline'))));
 };

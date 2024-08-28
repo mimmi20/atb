@@ -10,10 +10,20 @@
 
 declare(strict_types = 1);
 
+use App\Handler\AdminPageHandler;
+use App\Handler\AdminPageHandlerFactory;
+use App\Handler\HomePageHandler;
+use App\Handler\HomePageHandlerFactory;
+use App\Pipeline\AdminPipelineFactory;
+use App\Pipeline\DefaultPipelineFactory;
 use Laminas\Form\Factory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Mezzio\Application;
 use Mezzio\Container\ApplicationConfigInjectionDelegator;
+use Mezzio\Router\LaminasRouter;
+use Mezzio\Router\Middleware\RouteMiddlewareFactory;
+use Mezzio\Helper\UrlHelperFactory;
+use Mezzio\Helper\UrlHelperMiddlewareFactory;
 
 return [
     // Provides application-wide services.
@@ -24,11 +34,24 @@ return [
         // key is the alias name, the value is the service to which it points.
         'aliases' => [
             // Fully\Qualified\ClassOrInterfaceName::class => Fully\Qualified\ClassName::class,
+            'default-router' => LaminasRouter::class,
+            'admin-router' => LaminasRouter::class,
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
-            \App\Handler\HomePageHandler::class => \App\Handler\HomePageHandlerFactory::class,
+            HomePageHandler::class => HomePageHandlerFactory::class,
+            AdminPageHandler::class => AdminPageHandlerFactory::class,
             Factory::class => InvokableFactory::class,
+
+            'admin-router-middleware'   => new RouteMiddlewareFactory('admin-router'),
+            'admin-url-helper'          => new UrlHelperFactory('/admin', 'admin-router'),
+            'admin-url-middleware'      => new UrlHelperMiddlewareFactory('admin-url-helper'),
+            'admin-pipeline'            => AdminPipelineFactory::class,
+
+            'default-router-middleware' => new RouteMiddlewareFactory('default-router'),
+            'default-url-helper'        => new UrlHelperFactory('/api', 'default-router'),
+            'default-url-middleware'    => new UrlHelperMiddlewareFactory('default-url-helper'),
+            'default-pipeline'          => DefaultPipelineFactory::class,
         ],
 
         'delegators' => [
