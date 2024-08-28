@@ -6,7 +6,7 @@ class AtbBase {
       return;
     }
 
-    this.initDialog(dialog);
+    // this.initDialog(dialog);
 
     const titles = dialog.querySelectorAll<HTMLElement>('.modal-title');
 
@@ -365,7 +365,7 @@ class AtbBase {
       }
     } else {
       for (let [key, value] of await formData.entries()) {
-        previousSelection[key] = value;
+        previousSelection[parseInt(key)] = value;
       }
     }
 
