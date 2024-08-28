@@ -296,8 +296,8 @@ jobs:
       - name: "run eslint"
         run: "npm run lint"
 
-  build:
-    name: "Build"
+  build-with-tsup:
+    name: "Build with tsup"
 
     needs: "tests"
 
@@ -338,11 +338,95 @@ jobs:
       - name: "install dependencies"
         run: "npm install"
 
-      - name: "build with tsup"
+      - name: "build"
         run: "npm run build:tsup"
 
-      - name: "build with rollup"
+  build-with-rollup:
+    name: "Build with rollup"
+
+    needs: "tests"
+
+    runs-on: "${{ matrix.operating-system }}"
+
+    timeout-minutes: 10
+
+    continue-on-error: false
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        operating-system:
+          - "ubuntu-24.04"
+
+        node-version:
+          - "20"
+          - "22.5"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+          lfs: false
+          persist-credentials: false
+
+      - name: "install libimagequant-dev"
+        run: "sudo apt-get install libimagequant-dev -y"
+
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        uses: "actions/setup-node@v4"
+        with:
+          node-version: "${{ matrix.node-version }}"
+
+      - name: "install dependencies"
+        run: "npm install"
+
+      - name: "build"
         run: "npm run build:rollup"
 
-      - name: "build with vite"
+  build-with-vite:
+    name: "Build with vite"
+
+    needs: "tests"
+
+    runs-on: "${{ matrix.operating-system }}"
+
+    timeout-minutes: 10
+
+    continue-on-error: false
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        operating-system:
+          - "ubuntu-24.04"
+
+        node-version:
+          - "20"
+          - "22.5"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+          lfs: false
+          persist-credentials: false
+
+      - name: "install libimagequant-dev"
+        run: "sudo apt-get install libimagequant-dev -y"
+
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        uses: "actions/setup-node@v4"
+        with:
+          node-version: "${{ matrix.node-version }}"
+
+      - name: "install dependencies"
+        run: "npm install"
+
+      - name: "build"
         run: "npm run build:vite"
