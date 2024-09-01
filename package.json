@@ -9,8 +9,8 @@
     "build:tsup": "tsc && tsup",
     "build:rollup": "rollup -c rollup.config.mjs",
     "preview": "tsc && vite preview",
-    "lint": "eslint . --ext .ts,.js,.mjs,.cjs",
-    "lint-fix": "eslint . --ext .ts,.js,.mjs,.cjs --fix"
+    "lint": "eslint . --ext .ts,.mjs,.cjs",
+    "lint-fix": "eslint . --ext .ts,.mjs,.cjs --fix"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",

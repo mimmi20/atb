@@ -1,9 +1,8 @@
 class Dialog {
   initLayer(): void {
     const layerTriggers = document.querySelectorAll<HTMLElement>('.info-layer-trigger');
-    const that = this;
 
-    layerTriggers.forEach(function(layerTrigger: HTMLElement): void {
+    layerTriggers.forEach((layerTrigger: HTMLElement): void => {
       const layerId = layerTrigger.getAttribute('data-layer');
 
       if (layerId === null) {
@@ -19,7 +18,7 @@ class Dialog {
       }
 
       layerTrigger.addEventListener('click', (event: Event): void => {
-        console.log(`Button was clicked`);
+        console.log('Button was clicked');
 
         event.preventDefault();
         event.stopPropagation();
@@ -28,16 +27,16 @@ class Dialog {
         dialog.setAttribute('aria-hidden', 'false');
       });
 
-      that.initDialog(dialog);
+      this.initDialog(dialog);
     });
   }
 
   initPopover(): void {
     const popoverTriggers = document.querySelectorAll<HTMLElement>('[popovertarget]');
 
-    popoverTriggers.forEach(function(popoverTrigger: HTMLElement): void {
+    popoverTriggers.forEach((popoverTrigger: HTMLElement): void => {
       popoverTrigger.addEventListener('click', (event: Event): void => {
-        console.log(`Button was clicked`);
+        console.log('Button was clicked');
 
         event.preventDefault();
         event.stopPropagation();
@@ -48,7 +47,7 @@ class Dialog {
   initDialog(dialog: HTMLDialogElement): void {
     const closeButtons = dialog.querySelectorAll<HTMLButtonElement>('[data-bs-dismiss="modal"]');
 
-    closeButtons.forEach(function (button: HTMLButtonElement): void {
+    closeButtons.forEach((button: HTMLButtonElement): void => {
       button.addEventListener('click', (event: MouseEvent): void => {
         event.preventDefault();
         event.stopPropagation();
@@ -65,7 +64,7 @@ class Dialog {
   }
 }
 
-(function(): void {
+((): void => {
   const dialog = new Dialog();
 
   dialog.init();

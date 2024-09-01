@@ -1,4 +1,3 @@
-import * as path from 'path';
 import postcss from 'rollup-plugin-postcss';
 import { externalAssets } from 'rollup-plugin-external-assets';
 
@@ -38,8 +37,5 @@ export default {
     },
     strict: true,
   },
-  plugins: [
-    externalAssets("public/dist/assets/*"),
-    postcss(),
-  ],
+  plugins: [externalAssets('public/dist/assets/*'), postcss()],
 };

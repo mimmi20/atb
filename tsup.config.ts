@@ -2,7 +2,7 @@ import { defineConfig, Options } from 'tsup';
 import * as path from 'path';
 import { resolveToEsbuildTarget } from 'esbuild-plugin-browserslist';
 import browserslist from 'browserslist';
-import { BuildOptions } from "esbuild";
+import { BuildOptions } from 'esbuild';
 
 const target = resolveToEsbuildTarget(browserslist('defaults'), {
   printUnknownTargets: false,
@@ -27,7 +27,7 @@ export default defineConfig((options: Options) => {
     },
     outDir: path.resolve(__dirname, 'public/dist'),
     target: target,
-    esbuildOptions(options: BuildOptions, context) {
+    esbuildOptions(options: BuildOptions) {
       options.entryNames = '[dir]/[name]-[hash]';
     },
     minify: !options.sourcemap,
