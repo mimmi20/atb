@@ -12,6 +12,6 @@
     "skipLibCheck": false,
     "noEmit": false
   },
-  "include": ["public/**/*.js", "public/**/*.ts", "public/**/*.d.ts"],
+  "include": ["public/**/*.js", "public/**/*.ts", "public/**/*.d.ts", "tsup.config.ts", "vite.config.ts", "rollup.config.mjs", "postcss.config.cjs"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
