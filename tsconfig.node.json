@@ -6,5 +6,6 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts"]
+  "extends": "./tsconfig.json",
+  "include": ["tsup.config.ts", "vite.config.ts", "rollup.config.mjs", "postcss.config.cjs"]
 }

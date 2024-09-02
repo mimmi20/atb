@@ -1,7 +1,5 @@
 import {defineConfig} from 'vite';
 import * as path from 'path';
-import stylelint from 'vite-plugin-stylelint';
-import eslint from 'vite-plugin-eslint';
 import viteImagemin from '@vheemstra/vite-plugin-imagemin'
 import imageminJpegtran from '@yeanzhi/imagemin-jpegtran';
 import imageminPngquant from '@localnerve/imagemin-pngquant';
@@ -23,8 +21,6 @@ export default defineConfig({
   publicDir: 'public',
   base: '/dist/',
   plugins: [
-    stylelint(),
-    //eslint(),
     viteImagemin({
       plugins: {
         jpg: imageminJpegtran(),
@@ -77,44 +73,44 @@ export default defineConfig({
     minify: false,
     manifest: true,
     assetsInlineLimit: 0,
-    // rollupOptions: {
-    //   // https://rollupjs.org/configuration-options/
-    //   input: [
-    //     // general js
-    //     // path.resolve(__dirname, 'public/js/form.ts'),
-    //     // path.resolve(__dirname, 'public/js/atb.ts'),
-    //     // path.resolve(__dirname, 'public/js/dialog.ts'),
-    //     // path.resolve(__dirname, 'public/js/versbeginn.ts'),
-    //     // glass theme
-    //     path.resolve(__dirname, 'public/css/themes/glass.css'),
-    //     // general css
-    //     path.resolve(__dirname, 'public/css/404.css'),
-    //     path.resolve(__dirname, 'public/css/help.css'),
-    //     path.resolve(__dirname, 'public/css/styles.css'),
-    //     path.resolve(__dirname, 'public/css/atb.css'),
-    //     path.resolve(__dirname, 'public/css/navigation.css'),
-    //     path.resolve(__dirname, 'public/css/accordion.css'),
-    //     path.resolve(__dirname, 'public/css/validation.css'),
-    //     // Bootstrap
-    //     path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'),
-    //     // path.resolve(__dirname, 'node_modules/bootstrap/dist/js/bootstrap.esm.js'),
-    //     // Bootstrap Icons
-    //     path.resolve(__dirname, 'node_modules/bootstrap-icons/font/bootstrap-icons.css'),
-    //     // Themes
-    //     path.resolve(__dirname, 'node_modules/bootswatch/dist/morph/bootstrap.css'),
-    //     path.resolve(__dirname, 'node_modules/bootswatch/dist/quartz/bootstrap.css'),
-    //     // path.resolve(__dirname, 'node_modules/bootswatch/dist/materia/bootstrap.css'),
-    //   ],
-    //   output: {
-    //     // dir: 'public/dist',
-    //     format: 'es',
-    //     generatedCode: {
-    //       arrowFunctions: true,
-    //       constBindings: true,
-    //     },
-    //     strict: true,
-    //   },
-    // },
+    rollupOptions: {
+      // https://rollupjs.org/configuration-options/
+      input: [
+        // general js
+        // path.resolve(__dirname, 'public/js/form.ts'),
+        // path.resolve(__dirname, 'public/js/atb.ts'),
+        // path.resolve(__dirname, 'public/js/dialog.ts'),
+        // path.resolve(__dirname, 'public/js/versbeginn.ts'),
+        // glass theme
+        path.resolve(__dirname, 'public/css/themes/glass.css'),
+        // general css
+        path.resolve(__dirname, 'public/css/404.css'),
+        path.resolve(__dirname, 'public/css/help.css'),
+        path.resolve(__dirname, 'public/css/styles.css'),
+        path.resolve(__dirname, 'public/css/atb.css'),
+        path.resolve(__dirname, 'public/css/navigation.css'),
+        path.resolve(__dirname, 'public/css/accordion.css'),
+        path.resolve(__dirname, 'public/css/validation.css'),
+        // Bootstrap
+        path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'),
+        // path.resolve(__dirname, 'node_modules/bootstrap/dist/js/bootstrap.esm.js'),
+        // Bootstrap Icons
+        path.resolve(__dirname, 'node_modules/bootstrap-icons/font/bootstrap-icons.css'),
+        // Themes
+        path.resolve(__dirname, 'node_modules/bootswatch/dist/morph/bootstrap.css'),
+        path.resolve(__dirname, 'node_modules/bootswatch/dist/quartz/bootstrap.css'),
+        // path.resolve(__dirname, 'node_modules/bootswatch/dist/materia/bootstrap.css'),
+      ],
+      output: {
+        // dir: 'public/dist',
+        format: 'es',
+        generatedCode: {
+          arrowFunctions: true,
+          constBindings: true,
+        },
+        strict: true,
+      },
+    },
     // watch: {
     //   // https://rollupjs.org/configuration-options/#watch
     // },
