@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "dev:all": "concurrently \"tsc && vite\" \"php -S 0.0.0.0:8080 -t public/ -ddisplay_errors=1\"",
     "dev": "tsc && vite",
     "build:vite": "tsc && vite build",
     "build:tsup": "tsc && tsup",
@@ -46,6 +47,7 @@
     "@yeanzhi/imagemin-webp": "^5.1.2",
     "autoprefixer": "^10.4.20",
     "browserslist": "^4.23.3",
+    "concurrently": "^8.2.2",
     "css-declaration-sorter": "^7.2.0",
     "cssnano": "^7.0.2",
     "cssnano-preset-default": "^7.0.2",
@@ -103,9 +105,6 @@
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",
     "vite": "^5.4.2",
-    "vite-plugin-dts": "^4.0.3",
-    "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-stylelint": "^5.3.1",
     "yaml": "^2.5.0"
   },
   "engines": {
