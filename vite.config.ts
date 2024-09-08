@@ -61,7 +61,7 @@ export default defineConfig({
       clientPort: 8082,
     },
     origin: 'http://localhost:8082',
-    watch: {},
+    // watch: {},
   },
   build: {
     // target: target,
@@ -77,10 +77,10 @@ export default defineConfig({
       // https://rollupjs.org/configuration-options/
       input: [
         // general js
-        // path.resolve(__dirname, 'public/js/form.ts'),
-        // path.resolve(__dirname, 'public/js/atb.ts'),
-        // path.resolve(__dirname, 'public/js/dialog.ts'),
-        // path.resolve(__dirname, 'public/js/versbeginn.ts'),
+        path.resolve(__dirname, 'public/js/form.ts'),
+        path.resolve(__dirname, 'public/js/atb.ts'),
+        path.resolve(__dirname, 'public/js/dialog.ts'),
+        path.resolve(__dirname, 'public/js/versbeginn.ts'),
         // glass theme
         path.resolve(__dirname, 'public/css/themes/glass.css'),
         // general css
@@ -122,13 +122,13 @@ export default defineConfig({
   css: {
     devSourcemap: true,
     transformer: 'postcss',
-    preprocessorOptions: {
-      scss: {
-        outputStyle: 'expanded',
-        alertAscii: true,
-        alertColor: true,
-        verbose: true,
-      }
-    }
+    // preprocessorOptions: {
+    //   scss: {
+    //     outputStyle: 'expanded',
+    //     alertAscii: true,
+    //     alertColor: true,
+    //     verbose: true,
+    //   }
+    // }
   },
 })
