@@ -18,8 +18,9 @@
     "strict": true,
     "target": "es6",
     "lib": ["esnext", "dom", "dom.iterable"],
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "types": ["cypress", "node", "cypress-real-events", "cypress-axe"]
   },
-  "include": ["public/**/*.js", "public/**/*.ts", "public/**/*.d.ts"],
+  "include": ["public/**/*.js", "public/**/*.ts", "public/**/*.d.ts", "cypress/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

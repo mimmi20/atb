@@ -10,7 +10,7 @@
     Header append Vary: Accept-Encoding
 
     # don't allow to show inside a iframe
-    Header always set Content-Security-Policy "base-uri 'self'; default-src 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Header always set Content-Security-Policy "base-uri 'self'; default-src 'self'; frame-ancestors 'none'; script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules'; upgrade-insecure-requests"
 
     # dont't allow content sniffing inside the browser
     Header always set X-Content-Type-Options nosniff

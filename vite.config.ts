@@ -115,7 +115,7 @@ export default defineConfig({
     //   // https://rollupjs.org/configuration-options/#watch
     // },
     modulePreload: {
-      polyfill: false
+      polyfill: false,
     },
   },
   // esbuild: false,

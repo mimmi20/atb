@@ -7,5 +7,5 @@
     "allowSyntheticDefaultImports": true
   },
   "extends": "./tsconfig.json",
-  "include": ["tsup.config.ts", "vite.config.ts", "rollup.config.mjs", "postcss.config.cjs"]
+  "include": ["vite.config.ts", "postcss.config.cjs"]
 }
