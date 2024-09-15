@@ -1,3 +1,5 @@
+/* global process */
+
 import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
 import postcssPxtorem from 'postcss-pxtorem';
 import postcssPresetEnv from 'postcss-preset-env';
@@ -20,7 +22,7 @@ export default function (ctx) {
 
   return {
     plugins: [
-      postcssImport({root: root}),
+      postcssImport({ root: root }),
       postcssInputStyle,
       postcssFlexbugsFixes,
       postcssPseudoColons({
