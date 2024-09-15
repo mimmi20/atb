@@ -36,4 +36,7 @@ log/
 /public/js/*.js
 /public/js/*.map
 /public/js/*.d.ts
+/cypress/js/*.js
+/cypress/js/*.map
+/cypress/js/*.d.ts
 tsup.config.js
