@@ -427,6 +427,7 @@ jobs:
       - name: "E2E on Chrome on Node v${{ matrix.node-version }}"
         uses: "cypress-io/github-action@v6"
         with:
+          install: false
           build: "npm run build:vite"
           command: "npm run test:e2e"
           tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},chrome"
@@ -440,6 +441,7 @@ jobs:
       - name: "E2E on Firefox on Node v${{ matrix.node-version }}"
         uses: "cypress-io/github-action@v6"
         with:
+          install: false
           build: "npm run build:vite"
           command: "npm run test:e2e"
           tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},firefox"
@@ -453,6 +455,7 @@ jobs:
       - name: "E2E on Edge on Node v${{ matrix.node-version }}"
         uses: "cypress-io/github-action@v6"
         with:
+          install: false
           build: "npm run build:vite"
           command: "npm run test:e2e"
           tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},edge"
