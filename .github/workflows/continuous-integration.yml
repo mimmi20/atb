@@ -386,18 +386,47 @@ jobs:
 
       - name: "E2E on Electron"
         uses: "cypress-io/github-action@v6"
+        with:
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "E2E on Chrome"
         uses: "cypress-io/github-action@v6"
         with:
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
           browser: "chrome"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "E2E on Firefox"
         uses: "cypress-io/github-action@v6"
         with:
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
           browser: "firefox"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "E2E on Edge"
         uses: "cypress-io/github-action@v6"
         with:
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
           browser: "edge"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
