@@ -13,7 +13,7 @@
     "noImplicitReturns": true,
     "pretty": true,
     "resolveJsonModule": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "es6",

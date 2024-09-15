@@ -5,7 +5,7 @@ import codeCoverageTask from '@cypress/code-coverage/task';
 export default defineConfig({
   env: {
     codeCoverage: {
-      exclude: "cypress/**/*.*",
+      exclude: 'cypress/**/*.*',
     },
   },
   e2e: {
@@ -13,10 +13,13 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
 
-      on('file:preprocessor', vitePreprocessor({
-        configFile: false,
-        mode: 'development',
-      }));
+      on(
+        'file:preprocessor',
+        vitePreprocessor({
+          configFile: false,
+          mode: 'development',
+        })
+      );
 
       on('task', {
         log(message) {
@@ -25,7 +28,6 @@ export default defineConfig({
           return null;
         },
         table(message) {
-          // eslint-disable-next-line node/no-unsupported-features/node-builtins
           console.table(message);
 
           return null;
@@ -40,9 +42,9 @@ export default defineConfig({
     // Configure retry attempts for `cypress run`
     // Default is 0
     runMode: 3,
-      // Configure retry attempts for `cypress open`
-      // Default is 0
-      openMode: 0,
+    // Configure retry attempts for `cypress open`
+    // Default is 0
+    openMode: 0,
   },
 
   screenshotOnRunFailure: true,

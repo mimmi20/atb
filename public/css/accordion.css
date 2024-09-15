@@ -13,25 +13,23 @@
 }
 
 .accordion-item:not([open]) .accordion-button:not(.col-md-5)::after {
-    background-image: var(--bs-accordion-btn-active-icon);
     transform: unset;
+    background-image: var(--bs-accordion-btn-active-icon);
 }
 
 .accordion-item[open] .accordion-button:not(.col-md-5)::after {
-    background-image: var(--bs-accordion-btn-icon);
     transform: var(--bs-accordion-btn-icon-transform);
+    background-image: var(--bs-accordion-btn-icon);
 }
 
 .accordion-button.col-md-5 {
     box-shadow: none;
-}
 
-.accordion-item:not([open]):last-of-type .accordion-button.col-md-5 {
-    border-bottom-left-radius: var(--bs-border-radius);
-}
+    .accordion-item:not([open]):last-of-type & {
+        border-bottom-left-radius: var(--bs-border-radius);
+    }
 
-@media (min-width: 768px) {
-    .accordion-button.col-md-5 {
-        width: 41.66666667%;
+    @media (min-width: 768px) {
+        width: 41.66667%;
     }
 }
