@@ -1,6 +1,6 @@
-import {defineConfig} from 'vite';
+import { defineConfig } from 'vite';
 import * as path from 'path';
-import viteImagemin from '@vheemstra/vite-plugin-imagemin'
+import viteImagemin from '@vheemstra/vite-plugin-imagemin';
 import imageminJpegtran from '@yeanzhi/imagemin-jpegtran';
 import imageminPngquant from '@localnerve/imagemin-pngquant';
 import imageminGif from '@localnerve/imagemin-gifsicle';
@@ -25,31 +25,33 @@ export default defineConfig({
       plugins: {
         jpg: imageminJpegtran(),
         png: imageminPngquant({
-          quality: [0.6, 0.8]
+          quality: [0.6, 0.8],
         }),
         gif: imageminGif(),
         svg: imageminSvgo({
-          plugins: [{
-            name: 'removeViewBox',
-            active: false
-          }]
+          plugins: [
+            {
+              name: 'removeViewBox',
+              active: false,
+            },
+          ],
         }),
       },
       onlyAssets: true,
       makeWebp: {
         plugins: {
-          jpg: imageminWebp({quality: 100}),
+          jpg: imageminWebp({ quality: 100 }),
           gif: imageminGifToWebp(),
         },
         skipIfLargerThan: 'optimized',
       },
       makeAvif: {
         plugins: {
-          jpg: imageminAviv({lossless: true}),
-          png: imageminAviv({lossless: true}),
+          jpg: imageminAviv({ lossless: true }),
+          png: imageminAviv({ lossless: true }),
         },
         skipIfLargerThan: 'optimized',
-      }
+      },
     }),
   ],
   server: {
@@ -64,8 +66,7 @@ export default defineConfig({
     // watch: {},
   },
   build: {
-    // target: target,
-    target: 'modules',
+    target: target,
     outDir: 'public/dist', // relative to the `root` folder
     assetsDir: 'assets/',
     emptyOutDir: true,
@@ -115,7 +116,7 @@ export default defineConfig({
     //   // https://rollupjs.org/configuration-options/#watch
     // },
     modulePreload: {
-      polyfill: false
+      polyfill: false,
     },
   },
   // esbuild: false,
@@ -131,4 +132,4 @@ export default defineConfig({
     //   }
     // }
   },
-})
+});

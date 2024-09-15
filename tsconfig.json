@@ -3,8 +3,8 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
+    "declarationMap": false,
     "esModuleInterop": true,
     "isolatedModules": true,
     "module": "esnext",
@@ -13,13 +13,15 @@
     "noImplicitReturns": true,
     "pretty": true,
     "resolveJsonModule": true,
-    "skipLibCheck": false,
-    "sourceMap": true,
+    "skipLibCheck": true,
+    "sourceMap": false,
     "strict": true,
     "target": "es6",
     "lib": ["esnext", "dom", "dom.iterable"],
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "types": ["cypress", "node", "cypress-real-events", "cypress-axe"]
   },
-  "include": ["public/**/*.js", "public/**/*.ts", "public/**/*.d.ts"],
+  "include": ["public/**/*.js", "public/**/*.ts", "public/**/*.d.ts", "cypress/**/*.ts"],
+  "exclude": ["cypress/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

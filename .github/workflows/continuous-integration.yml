@@ -297,96 +297,6 @@ jobs:
       - name: "run eslint"
         run: "npm run lint"
 
-  build-with-tsup:
-    name: "Build with tsup"
-
-    needs: "tests"
-
-    runs-on: "${{ matrix.operating-system }}"
-
-    timeout-minutes: 10
-
-    continue-on-error: false
-
-    strategy:
-      fail-fast: false
-
-      matrix:
-        operating-system:
-          - "ubuntu-24.04"
-
-        node-version:
-          - "20"
-          - "22.5"
-
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v4"
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-          lfs: false
-          persist-credentials: false
-
-      - name: "install libimagequant-dev"
-        run: "sudo apt-get install libimagequant-dev -y"
-
-      - name: "Use Node.js ${{ matrix.node-version }}"
-        uses: "actions/setup-node@v4"
-        with:
-          node-version: "${{ matrix.node-version }}"
-
-      - name: "install dependencies"
-        run: "npm install"
-
-      - name: "build"
-        run: "npm run build:tsup"
-
-  build-with-rollup:
-    name: "Build with rollup"
-
-    needs: "tests"
-
-    runs-on: "${{ matrix.operating-system }}"
-
-    timeout-minutes: 10
-
-    continue-on-error: false
-
-    strategy:
-      fail-fast: false
-
-      matrix:
-        operating-system:
-          - "ubuntu-24.04"
-
-        node-version:
-          - "20"
-          - "22.5"
-
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v4"
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-          lfs: false
-          persist-credentials: false
-
-      - name: "install libimagequant-dev"
-        run: "sudo apt-get install libimagequant-dev -y"
-
-      - name: "Use Node.js ${{ matrix.node-version }}"
-        uses: "actions/setup-node@v4"
-        with:
-          node-version: "${{ matrix.node-version }}"
-
-      - name: "install dependencies"
-        run: "npm install"
-
-      - name: "build"
-        run: "npm run build:rollup"
-
   build-with-vite:
     name: "Build with vite"
 
@@ -431,3 +341,127 @@ jobs:
 
       - name: "build"
         run: "npm run build:vite"
+
+  cypress-run:
+    name: "Run Cypress tests"
+
+    needs: "tests"
+
+    runs-on: "${{ matrix.operating-system }}"
+
+    timeout-minutes: 10
+
+    continue-on-error: false
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        operating-system:
+          - "ubuntu-24.04"
+
+        node-version:
+          - "20"
+          - "22"
+
+        php-version:
+          - "8.1"
+          - "8.2"
+          - "8.3"
+
+        dependencies:
+          - "lowest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+          lfs: false
+          persist-credentials: false
+
+      - name: "install libimagequant-dev"
+        run: "sudo apt-get install libimagequant-dev -y"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@2.31.1"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          extensions: "none, phar, json, opcache, ctype, curl, dom, fileinfo, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter"
+          ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage"
+          coverage: "xdebug"
+          tools: "composer:v2"
+        env:
+          fail-fast: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          phpts: "nts"
+          debug: true
+
+      - name: "Update dependencies with composer"
+        uses: "ramsey/composer-install@3.0.0"
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
+          composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
+
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        uses: "actions/setup-node@v4"
+        with:
+          node-version: "${{ matrix.node-version }}"
+
+      - name: "install dependencies"
+        run: "npm install"
+
+      - name: "E2E on Electron on Node v${{ matrix.node-version }}"
+        uses: "cypress-io/github-action@v6"
+        with:
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
+          tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},electron"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "E2E on Chrome on Node v${{ matrix.node-version }}"
+        uses: "cypress-io/github-action@v6"
+        with:
+          install: false
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
+          tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},chrome"
+          browser: "chrome"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "E2E on Firefox on Node v${{ matrix.node-version }}"
+        uses: "cypress-io/github-action@v6"
+        with:
+          install: false
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
+          tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},firefox"
+          browser: "firefox"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "E2E on Edge on Node v${{ matrix.node-version }}"
+        uses: "cypress-io/github-action@v6"
+        with:
+          install: false
+          build: "npm run build:vite"
+          command: "npm run test:e2e"
+          tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},edge"
+          browser: "edge"
+        env:
+          # Get the short ref name of the branch that triggered the workflow run
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
