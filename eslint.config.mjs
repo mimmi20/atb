@@ -45,7 +45,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['public/**/*.{mjs,ts}', 'eslint.config.mjs', 'postcss.config.mjs', 'prettier.config.mjs', 'stylelint.config.ts', 'vite.config.ts', 'cypress.config.ts'],
+    files: ['public/**/*.{mjs,ts}', 'eslint.config.mjs', 'postcss.config.mjs', 'prettier.config.mjs', 'stylelint.config.mjs', 'vite.config.ts', 'cypress.config.ts'],
     languageOptions: {
       sourceType: 'module',
     },

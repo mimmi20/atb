@@ -8,7 +8,7 @@
     "dev": "tsc && vite",
     "build:vite": "tsc && vite build",
     "preview": "tsc && vite preview",
-    "prettier": "prettier --config prettier.config.mjs --check public/**/*.js",
+    "prettier": "prettier --config prettier.config.mjs --check public/**/*.ts",
     "stylelint": "stylelint \"public/css/*.css\" --color --cache --custom-formatter ./node_modules/stylelint-formatter-pretty/index.js",
     "stylelint-fix": "stylelint \"public/css/*.css\" --color --cache --fix --custom-formatter ./node_modules/stylelint-formatter-pretty/index.js",
     "lint": "eslint . --config eslint.config.mjs",
