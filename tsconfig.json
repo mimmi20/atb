@@ -21,7 +21,7 @@
     "useDefineForClassFields": true,
     "types": ["cypress", "node", "cypress-real-events", "cypress-axe"]
   },
-  "include": ["public/**/*.js", "public/**/*.ts", "public/**/*.d.ts", "cypress/**/*.ts"],
+  "include": ["public/**/*.ts", "public/**/*.d.ts"],
   "exclude": ["cypress/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
