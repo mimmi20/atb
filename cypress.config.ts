@@ -9,7 +9,7 @@ export default defineConfig({
     },
   },
   e2e: {
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'http://localhost:8082',
     supportFile: 'cypress/support/e2e.ts',
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);

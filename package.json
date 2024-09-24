@@ -4,11 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev:all": "concurrently \"tsc && vite\" \"php -S 0.0.0.0:8080 -t public/ public/index.php -q -ddisplay_errors=1\"",
+    "dev:all": "concurrently \"tsc && vite\" \"php -S 0.0.0.0:8082 -t public/ public/index.php -q -ddisplay_errors=1\"",
     "dev": "tsc && vite",
     "build:vite": "tsc && vite build",
     "preview": "tsc && vite preview",
+    "test": "tsc && vite build && vitest run",
+    "coverage": "tsc && vite build && vitest run --coverage",
+    "typecheck": "tsc && vitest typecheck",
     "prettier": "prettier --config prettier.config.mjs --check public/**/*.ts",
+    "prettier-fix": "prettier --config prettier.config.mjs --write public/**/*.ts",
     "stylelint": "stylelint \"public/css/*.css\" --color --cache --custom-formatter ./node_modules/stylelint-formatter-pretty/index.js",
     "stylelint-fix": "stylelint \"public/css/*.css\" --color --cache --fix --custom-formatter ./node_modules/stylelint-formatter-pretty/index.js",
     "lint": "eslint . --config eslint.config.mjs",
@@ -18,7 +22,7 @@
     "cypress:run:chrome": "cypress run --browser chrome",
     "cypress:run:firefox": "cypress run --browser firefox",
     "cypress:run:chromium": "cypress run --browser chromium",
-    "test:e2e": "start-server-and-test 'php -S localhost:8080 -t public/ public/index.php -q -ddisplay_errors=1' http://localhost:8080 'npx cypress run'"
+    "test:e2e": "start-server-and-test 'php -S localhost:8082 -t public/ public/index.php -q -ddisplay_errors=1' http://localhost:8082 'npx cypress run'"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
