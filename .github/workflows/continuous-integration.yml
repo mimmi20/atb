@@ -58,9 +58,36 @@ jobs:
       skip-phpstan: false
       skip-rector: false
       skip-phpmd: false
+      skip-eslint: false
+      skip-stylelint: false
+      skip-prettier: false
       phpcs-options: ""
 
   tests:
+    name: "UnitTests"
+
+    needs: "analytics"
+
+    uses: "mimmi20/ci/.github/workflows/test.yml@8.1"
+    with:
+      extensions: "ctype, dom, fileinfo, intl, simplexml, tokenizer, xml, xmlwriter"
+      ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
+      coverage: "xdebug"
+      composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
+      test-name: ""
+      min-msi: 0
+      min-covered-msi: 0
+      skip-phpunit: false
+      skip-vitest: true
+      skip-stryker: true
+      upload-codecov: true
+      upload-codeclimate: true
+      upload-coveralls: true
+      upload-flag: ""
+    secrets:
+      ENV_CODECLIMATE_API_KEY: ${{ secrets.CODECLIMATE_API_KEY }}
+
+  tests2:
     name: "UnitTests with PHPUnit"
 
     needs: "analytics"
@@ -244,6 +271,7 @@ jobs:
 
     needs:
       - "tests"
+      - "tests2"
       - "code-coverage"
 
     steps:
@@ -298,7 +326,7 @@ jobs:
         run: "npm install"
 
       - name: "run eslint"
-        run: "npm run lint"
+        run: "npm run eslint"
 
   build-with-vite:
     name: "Build with vite"
