@@ -31,8 +31,6 @@ jobs:
       skip-check-composer: true
       skip-ec-checker: false
       dependency-analyser-options: ""
-    secrets:
-      ENV_CODECLIMATE_API_KEY: ${{ secrets.CODECLIMATE_API_KEY }}
 
   install:
     name: "Install Project"
@@ -86,6 +84,8 @@ jobs:
       upload-codeclimate: true
       upload-coveralls: true
       upload-flag: ""
+    secrets:
+      ENV_CODECLIMATE_API_KEY: ${{ secrets.CODECLIMATE_API_KEY }}
 
   tests2:
     name: "UnitTests with PHPUnit"
