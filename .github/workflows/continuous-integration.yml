@@ -324,7 +324,7 @@ jobs:
         run: "npm install"
 
       - name: "run eslint"
-        run: "npm run lint"
+        run: "npm run eslint"
 
   build-with-vite:
     name: "Build with vite"
