@@ -32,7 +32,7 @@ jobs:
       skip-ec-checker: false
       dependency-analyser-options: ""
     secrets:
-      access-token: ${{ secrets.CODECLIMATE_API_KEY }}
+      ENV_CODECLIMATE_API_KEY: ${{ secrets.CODECLIMATE_API_KEY }}
 
   install:
     name: "Install Project"
