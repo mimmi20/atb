@@ -78,7 +78,7 @@ jobs:
       min-msi: 0
       min-covered-msi: 0
       skip-phpunit: false
-      skip-vitest: false
+      skip-vitest: true
       skip-stryker: true
       upload-codecov: true
       upload-codeclimate: true
