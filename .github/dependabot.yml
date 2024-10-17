@@ -83,8 +83,7 @@ updates:
       - dependency-name: "symfony/http-foundation"
       - dependency-name: "symfony/yaml"
 
-    # Disable rebasing for all pull requests
-    rebase-strategy: "disabled"
+    rebase-strategy: "auto"
 
   - package-ecosystem: "npm"
 
@@ -146,8 +145,7 @@ updates:
       - dependency-name: "supports-color"
       - dependency-name: "vitest"
 
-    # Disable rebasing for all pull requests
-    rebase-strategy: "disabled"
+    rebase-strategy: "auto"
 
   - package-ecosystem: "github-actions"
 
@@ -187,5 +185,4 @@ updates:
     commit-message:
       prefix: "github-actions"
 
-    # Disable rebasing for all pull requests
-    rebase-strategy: "disabled"
+    rebase-strategy: "auto"
