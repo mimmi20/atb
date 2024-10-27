@@ -111,7 +111,7 @@
     "postcss-replace-overflow-wrap": "^4.0.0",
     "postcss-rtl-logical-properties": "^1.0.7",
     "postcss-scss": "^4.0.9",
-    "postcss-selector-not": "^8.0.0",
+    "postcss-selector-not": "^8.0.1",
     "postcss-strip-inline-comments": "^0.1.5",
     "postcss-will-change": "^4.0.1",
     "prettier": "^3.3.3",
