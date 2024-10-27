@@ -85,7 +85,7 @@
     "postcss-color-hex-alpha": "^10.0.0",
     "postcss-color-rebeccapurple": "^10.0.0",
     "postcss-color-rgba-fallback": "^4.0.0",
-    "postcss-custom-media": "^11.0.3",
+    "postcss-custom-media": "^11.0.4",
     "postcss-custom-properties": "^14.0.2",
     "postcss-custom-selectors": "^8.0.3",
     "postcss-dir-pseudo-class": "^9.0.0",
