@@ -10,8 +10,7 @@ updates:
     directory: "/"
 
     schedule:
-      interval: "weekly"
-      day: "sunday"
+      interval: "daily"
       time: "04:00"
       timezone: "Europe/Berlin"
 
@@ -33,9 +32,6 @@ updates:
     commit-message:
       include: "scope"
       prefix: "composer"
-
-    #allow:
-    #  - '*'
 
     ignore:
       - dependency-name: "browscap/browscap"
@@ -70,8 +66,7 @@ updates:
     directory: "/"
 
     schedule:
-      interval: "weekly"
-      day: "sunday"
+      interval: "daily"
       time: "04:00"
       timezone: "Europe/Berlin"
 
@@ -122,8 +117,7 @@ updates:
     directory: "/"
 
     schedule:
-      interval: "weekly"
-      day: "sunday"
+      interval: "daily"
       time: "04:00"
       timezone: "Europe/Berlin"
 
@@ -142,5 +136,8 @@ updates:
 
     commit-message:
       prefix: "github-actions"
+
+    ignore:
+      - dependency-name: "mimmi20/ci"
 
     rebase-strategy: "auto"
