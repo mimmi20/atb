@@ -33,7 +33,7 @@
     "moment": "^2.30.1"
   },
   "devDependencies": {
-    "@csstools/postcss-color-function": "^4.0.4",
+    "@csstools/postcss-color-function": "^4.0.5",
     "@csstools/postcss-font-format-keywords": "^4.0.0",
     "@csstools/postcss-is-pseudo-class": "^5.0.1",
     "@csstools/postcss-nested-calc": "^4.0.0",
