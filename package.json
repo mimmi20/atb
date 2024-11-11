@@ -80,7 +80,7 @@
     "imagemin-gif2webp": "^3.0.0",
     "lilconfig": "^3.1.2",
     "mocha": "^10.8.2",
-    "postcss": "^8.4.47",
+    "postcss": "^8.4.48",
     "postcss-clamp": "^4.1.0",
     "postcss-color-hex-alpha": "^10.0.0",
     "postcss-color-rebeccapurple": "^10.0.0",
