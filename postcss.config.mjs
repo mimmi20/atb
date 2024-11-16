@@ -16,6 +16,7 @@ import postcssPseudoColons from 'postcss-pseudo-element-colons';
 import autoprefixer from 'autoprefixer';
 import postcssDiscardComments from 'postcss-discard-comments';
 import postcssImport from 'postcss-import';
+import postColorConverter from 'postcss-color-converter';
 
 export default function (ctx) {
   const root = process.cwd();
@@ -29,6 +30,7 @@ export default function (ctx) {
         selectors: ['before', 'after', 'first-letter', 'first-line'],
         'colon-notation': 'double',
       }),
+      postColorConverter({ outputColorFormat: 'rgb', ignore: ['rgb', 'hsl'], alwaysAlpha: true }),
       postcssPxtorem({
         propList: ['*'],
         replace: true,

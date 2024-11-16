@@ -82,6 +82,7 @@
     "mocha": "^10.8.2",
     "postcss": "^8.4.49",
     "postcss-clamp": "^4.1.0",
+    "postcss-color-converter": "^1.1.2",
     "postcss-color-hex-alpha": "^10.0.0",
     "postcss-color-rebeccapurple": "^10.0.0",
     "postcss-color-rgba-fallback": "^4.0.0",
