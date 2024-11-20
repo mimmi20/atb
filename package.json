@@ -51,7 +51,7 @@
     "@types/chart.js": "^2.9.41",
     "@types/eslint__js": "^8.42.3",
     "@types/intl": "^1.2.2",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.9.1",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
     "@typescript-eslint/parser": "^7.13.0",
     "@typescript-eslint/typescript-estree": "^7.13.0",
