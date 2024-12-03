@@ -79,7 +79,7 @@
     "imagemin": "^9.0.0",
     "imagemin-gif2webp": "^3.0.0",
     "lilconfig": "^3.1.2",
-    "mocha": "^10.8.2",
+    "mocha": "^11.0.1",
     "postcss": "^8.4.49",
     "postcss-clamp": "^4.1.0",
     "postcss-color-converter": "^1.1.2",
