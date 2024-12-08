@@ -37,6 +37,7 @@ final class AdminPipelineFactory
     public function __invoke(ContainerInterface $container): MiddlewarePipe
     {
         $factory = $container->get(MiddlewareFactory::class);
+        assert($factory instanceof MiddlewareFactory);
 
         // First, create our middleware pipeline
         $pipeline = new MiddlewarePipe();

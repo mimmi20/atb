@@ -19,6 +19,7 @@ use Laminas\Form\Factory;
 use Laminas\Form\Form;
 use Laminas\View\Model\ViewModel;
 use Mezzio\Template\TemplateRendererInterface;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -30,18 +31,19 @@ use function file_exists;
 use function is_string;
 use function sprintf;
 
-final class HomePageHandler implements RequestHandlerInterface
+final readonly class HomePageHandler implements RequestHandlerInterface
 {
     /** @throws void */
     public function __construct(
-        private readonly TemplateRendererInterface $template,
-        private readonly Factory $factory,
-        private readonly LoggerInterface $logger,
+        private TemplateRendererInterface $template,
+        private Factory $factory,
+        private LoggerInterface $logger,
     ) {
         // nothing to do
     }
 
     /** @throws InvalidArgumentException */
+    #[Override]
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $id = $request->getAttribute('id');

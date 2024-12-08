@@ -1,7 +1,7 @@
 parameters:
   level: max
 
-  phpVersion: 80100 # PHP 8.1
+  phpVersion: 80300 # PHP 8.3
 
   parallel:
     maximumNumberOfProcesses: 1
@@ -15,9 +15,6 @@ parameters:
     - %currentWorkingDirectory%/vendor/autoload.php
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/autoload.php
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
-
-  stubFiles:
-    - vendor/mimmi20/coding-standard/stubs/psr/container/ContainerInterface.stub
 
   # reports occurrences of type-checking functions always evaluated to true
   checkAlwaysTrueCheckTypeFunctionCall: false # todo: fix
@@ -107,7 +104,7 @@ parameters:
     return_type: 100
     param_type: 92.8
     property_type: 100
-    constant_type: 0
+    constant_type: 100
     # also, how many files has declare strict types
     declare: 100
 
