@@ -17,6 +17,7 @@ use Laminas\Diactoros\Exception\InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\View\Model\ViewModel;
 use Mezzio\Template\TemplateRendererInterface;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -26,17 +27,16 @@ use Throwable;
 use function assert;
 use function is_string;
 
-final class AdminPageHandler implements RequestHandlerInterface
+final readonly class AdminPageHandler implements RequestHandlerInterface
 {
     /** @throws void */
-    public function __construct(
-        private readonly TemplateRendererInterface $template,
-        private readonly LoggerInterface $logger,
-    ) {
+    public function __construct(private TemplateRendererInterface $template, private LoggerInterface $logger)
+    {
         // nothing to do
     }
 
     /** @throws InvalidArgumentException */
+    #[Override]
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $id = $request->getAttribute('id');
