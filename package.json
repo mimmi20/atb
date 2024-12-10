@@ -51,7 +51,7 @@
     "@types/eslint__js": "^8.42.3",
     "@types/intl": "^1.2.2",
     "@types/node": "^22.10.1",
-    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
     "@typescript-eslint/typescript-estree": "^8.17.0",
     "@vheemstra/imagemin-avifenc": "^2.1.0",
