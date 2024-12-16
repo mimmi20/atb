@@ -92,7 +92,7 @@
     "postcss-nested": "^7.0.2",
     "postcss-prefix-selector": "^2.1.0",
     "postcss-prefixwrap": "^1.53.0",
-    "postcss-preset-env": "^10.1.1",
+    "postcss-preset-env": "^10.1.2",
     "postcss-pseudo-element-colons": "^1.0.2",
     "postcss-pxtorem": "^6.1.0",
     "postcss-strip-inline-comments": "^0.1.5",
