@@ -99,7 +99,7 @@
     "postcss-will-change": "^4.0.1",
     "prettier": "^3.4.2",
     "prettier-eslint": "^16.3.0",
-    "rollup": "^4.28.1",
+    "rollup": "^4.29.1",
     "rollup-plugin-external-assets": "^4.1.1",
     "rollup-plugin-postcss": "^4.0.2",
     "sass-embedded": "^1.83.0",
