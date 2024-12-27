@@ -7,10 +7,12 @@
 <IfModule mod_headers.c>
     Header set X-UA-Compatible "IE=edge"
     Header set Accept-CH "sec-ch-ua,ua,sec-ch-ua-platform,ua-platform,sec-ch-ua-mobile,ua-mobile,sec-ch-ua-full-version,ua-full-version,sec-ch-ua-platform-version,ua-platform-version,sec-ch-ua-arch,ua-arch,sec-ch-ua-bitness,ua-bitness,sec-ch-ua-model,ua-model,sec-ch-lang,lang,sec-ch-save-data,save-data,sec-ch-width,width,sec-ch-viewport-width,viewport-width,sec-ch-viewport-height,viewport-height,sec-ch-dpr,dpr,sec-ch-device-memory,device-memory,sec-ch-rtt,rtt,sec-ch-downlink,downlink,sec-ch-ect,ect,sec-ch-prefers-color-scheme,sec-ch-prefers-reduced-motion,sec-ch-prefers-reduced-transparency,sec-ch-prefers-contrast,sec-ch-forced-colors,sec-ch-prefers-reduced-data"
-    Header append Vary: Accept-Encoding
+    Header append Vary Accept-Encoding
 
     # don't allow to show inside a iframe
     Header always set Content-Security-Policy "base-uri 'self'; default-src 'self'; frame-ancestors 'none'; script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules'; upgrade-insecure-requests"
+
+    Header always set Referrer-Policy "no-referrer, strict-origin-when-cross-origin"
 
     # dont't allow content sniffing inside the browser
     Header always set X-Content-Type-Options nosniff
@@ -49,7 +51,10 @@
 
 RewriteEngine On
 
-AddType image/svg+xml svg svgz
+AddType application/x-javascript js cjs mjs
+AddType text/css css
+AddType image/svg+xml svg
+AddType image/svgz+xml svgz
 AddType font/woff woff
 AddType font/woff2 woff2
 AddType video/mp4 mp4
@@ -57,45 +62,126 @@ AddType video/mp4 mp4
 ## Enable Compression
 ################################################################################
 <IfModule mod_deflate.c>
-    SetOutputFilter DEFLATE
-
-    AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/rss+xml
-    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
-    AddOutputFilterByType DEFLATE application/x-font
-    AddOutputFilterByType DEFLATE application/x-font-opentype
-    AddOutputFilterByType DEFLATE application/x-font-otf
-    AddOutputFilterByType DEFLATE application/x-font-truetype
-    AddOutputFilterByType DEFLATE application/x-font-ttf
+    #AddOutputFilterByType DEFLATE application/javascript
+    #AddOutputFilterByType DEFLATE application/rss+xml
+    #AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    #AddOutputFilterByType DEFLATE application/x-font
+    #AddOutputFilterByType DEFLATE application/x-font-opentype
+    #AddOutputFilterByType DEFLATE application/x-font-otf
+    #AddOutputFilterByType DEFLATE application/x-font-truetype
+    #AddOutputFilterByType DEFLATE application/x-font-ttf
     AddOutputFilterByType DEFLATE application/x-javascript
-    AddOutputFilterByType DEFLATE application/xhtml+xml
-    AddOutputFilterByType DEFLATE application/xml
-    AddOutputFilterByType DEFLATE font/opentype
-    AddOutputFilterByType DEFLATE font/otf
-    AddOutputFilterByType DEFLATE font/ttf
+    #AddOutputFilterByType DEFLATE application/xhtml+xml
+    #AddOutputFilterByType DEFLATE application/xml
+    #AddOutputFilterByType DEFLATE font/opentype
+    #AddOutputFilterByType DEFLATE font/otf
+    #AddOutputFilterByType DEFLATE font/ttf
     AddOutputFilterByType DEFLATE font/woff
     AddOutputFilterByType DEFLATE font/woff2
     AddOutputFilterByType DEFLATE image/svg+xml
     AddOutputFilterByType DEFLATE image/svgz+xml
-    AddOutputFilterByType DEFLATE image/x-icon
+    #AddOutputFilterByType DEFLATE image/x-icon
     AddOutputFilterByType DEFLATE text/css
     AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/javascript
-    AddOutputFilterByType DEFLATE text/plain
-    AddOutputFilterByType DEFLATE text/xml
-    AddOutputFilterByType DEFLATE application/json
-    AddOutputFilterByType DEFLATE text/x-component
-    AddOutputFilterByType DEFLATE application/atom+xml
-    AddOutputFilterByType DEFLATE application/pdf
+    #AddOutputFilterByType DEFLATE text/javascript
+    #AddOutputFilterByType DEFLATE text/plain
+    #AddOutputFilterByType DEFLATE text/xml
+    #AddOutputFilterByType DEFLATE application/json
+    #AddOutputFilterByType DEFLATE text/x-component
+    #AddOutputFilterByType DEFLATE application/atom+xml
+    #AddOutputFilterByType DEFLATE application/pdf
 
-    # Remove browser bugs (only needed for really old browsers)
-    BrowserMatch ^Mozilla/4 gzip-only-text/html
-    BrowserMatch ^Mozilla/4\.0[678] no-gzip
-    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    # Append the compression method onto the end of the ETag
+    DeflateAlterETag AddSuffix
+
+    <IfModule mod_headers.c>
+        # Serve gzip compressed CSS and JS files if they exist
+        # and the client accepts gzip.
+        RewriteCond "%{HTTP:Accept-encoding}" "gzip"
+        RewriteCond "%{REQUEST_FILENAME}\.gz" -s
+        RewriteRule "^(.*)\.(css|js|cjs|mjs|svg|html|woff|woff2)" "$1\.$2\.gz" [QSA]
+
+        # Serve correct content types, and prevent mod_deflate double gzip.
+        RewriteRule "\.css\.gz$" "-" [T=text/css,E=no-gzip:1]
+        RewriteRule "\.js\.gz$"  "-" [T=application/x-javascript,E=no-gzip:1]
+        RewriteRule "\.cjs\.gz$"  "-" [T=application/x-javascript,E=no-gzip:1]
+        RewriteRule "\.mjs\.gz$"  "-" [T=application/x-javascript,E=no-gzip:1]
+        RewriteRule "\.svg\.gz$"  "-" [T=image/svg+xml,E=no-gzip:1]
+        RewriteRule "\.html\.gz$"  "-" [T=text/html,E=no-gzip:1]
+        RewriteRule "\.woff\.gz$"  "-" [T=font/woff,E=no-gzip:1]
+        RewriteRule "\.woff2\.gz$"  "-" [T=font/woff2,E=no-gzip:1]
+
+        <FilesMatch "(\.(css|js|cjs|mjs|svg|html|woff|woff2)\.gz)$">
+            # Serve correct encoding type.
+            Header append Content-Encoding gzip
+
+            # Force proxies to cache gzipped &
+            # non-gzipped css/js files separately.
+            Header append Vary Accept-Encoding
+        </FilesMatch>
+    </IfModule>
 </IfModule>
 
-# Etags don't work if compression is activated #
-FileETag None
+# prefer to brotli over gzip if brotli is available
+<IfModule mod_brotli.c>
+    #AddOutputFilterByType BROTLI_COMPRESS application/javascript
+    #AddOutputFilterByType BROTLI_COMPRESS application/rss+xml
+    #AddOutputFilterByType BROTLI_COMPRESS application/vnd.ms-fontobject
+    #AddOutputFilterByType BROTLI_COMPRESS application/x-font
+    #AddOutputFilterByType BROTLI_COMPRESS application/x-font-opentype
+    #AddOutputFilterByType BROTLI_COMPRESS application/x-font-otf
+    #AddOutputFilterByType BROTLI_COMPRESS application/x-font-truetype
+    #AddOutputFilterByType BROTLI_COMPRESS application/x-font-ttf
+    AddOutputFilterByType BROTLI_COMPRESS application/x-javascript
+    #AddOutputFilterByType BROTLI_COMPRESS application/xhtml+xml
+    #AddOutputFilterByType BROTLI_COMPRESS application/xml
+    #AddOutputFilterByType BROTLI_COMPRESS font/opentype
+    #AddOutputFilterByType BROTLI_COMPRESS font/otf
+    #AddOutputFilterByType BROTLI_COMPRESS font/ttf
+    AddOutputFilterByType BROTLI_COMPRESS font/woff
+    AddOutputFilterByType BROTLI_COMPRESS font/woff2
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+    AddOutputFilterByType BROTLI_COMPRESS image/svgz+xml
+    #AddOutputFilterByType BROTLI_COMPRESS image/x-icon
+    AddOutputFilterByType BROTLI_COMPRESS text/css
+    AddOutputFilterByType BROTLI_COMPRESS text/html
+    #AddOutputFilterByType BROTLI_COMPRESS text/javascript
+    #AddOutputFilterByType BROTLI_COMPRESS text/plain
+    #AddOutputFilterByType BROTLI_COMPRESS text/xml
+    #AddOutputFilterByType BROTLI_COMPRESS application/json
+    #AddOutputFilterByType BROTLI_COMPRESS text/x-component
+    #AddOutputFilterByType BROTLI_COMPRESS application/atom+xml
+    #AddOutputFilterByType BROTLI_COMPRESS application/pdf
+
+    BrotliAlterETag AddSuffix
+
+    <IfModule mod_headers.c>
+        # Serve brotli compressed CSS and JS files if they exist
+        # and the client accepts brotli.
+        RewriteCond "%{HTTP:Accept-encoding}" "br"
+        RewriteCond "%{REQUEST_FILENAME}\.br" -s
+        RewriteRule "^(.*)\.(css|js|cjs|mjs|svg|html|woff|woff2)" "$1\.$2\.br" [QSA]
+
+        # Serve correct content types, and prevent double compression.
+        RewriteRule "\.css\.br$" "-" [T=text/css,E=no-brotli:1]
+        RewriteRule "\.js\.br$"  "-" [T=application/x-javascript,E=no-brotli:1]
+        RewriteRule "\.cjs\.br$"  "-" [T=application/x-javascript,E=no-brotli:1]
+        RewriteRule "\.mjs\.br$"  "-" [T=application/x-javascript,E=no-brotli:1]
+        RewriteRule "\.svg\.br$"  "-" [T=image/svg+xml,E=no-brotli:1]
+        RewriteRule "\.html\.br$"  "-" [T=text/html,E=no-brotli:1]
+        RewriteRule "\.woff\.br$"  "-" [T=font/woff,E=no-brotli:1]
+        RewriteRule "\.woff2\.br$"  "-" [T=font/woff2,E=no-brotli:1]
+
+        <FilesMatch "(\.(css|js|cjs|mjs|svg|html|woff|woff2)\.br)$">
+            # Serve correct encoding type.
+            Header append Content-Encoding br
+
+            # Force proxies to cache brotli &
+            # non-brotli css/js files separately.
+            Header append Vary Accept-Encoding
+        </FilesMatch>
+    </IfModule>
+</IfModule>
 
 # The following rule allows authentication to work with fast-cgi
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
