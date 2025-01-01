@@ -61,7 +61,7 @@
     "autoprefixer": "^10.4.20",
     "axe-core": "^4.10.2",
     "browserslist": "^4.24.3",
-    "concurrently": "^9.1.1",
+    "concurrently": "^9.1.2",
     "css-declaration-sorter": "^7.2.0",
     "cssnano": "^7.0.6",
     "cssnano-preset-default": "^7.0.6",
