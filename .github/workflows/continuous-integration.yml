@@ -204,7 +204,7 @@ jobs:
       - name: "E2E on Electron on Node v${{ matrix.node-version }}"
         uses: "cypress-io/github-action@v6"
         with:
-          build: "npm run build:vite"
+          build: "npm run build"
           command: "npm run test:e2e"
           tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},electron"
         env:
@@ -217,7 +217,7 @@ jobs:
         uses: "cypress-io/github-action@v6"
         with:
           install: false
-          build: "npm run build:vite"
+          build: "npm run build"
           command: "npm run test:e2e"
           tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},chrome"
           browser: "chrome"
@@ -231,7 +231,7 @@ jobs:
         uses: "cypress-io/github-action@v6"
         with:
           install: false
-          build: "npm run build:vite"
+          build: "npm run build"
           command: "npm run test:e2e"
           tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},firefox"
           browser: "firefox"
@@ -245,7 +245,7 @@ jobs:
         uses: "cypress-io/github-action@v6"
         with:
           install: false
-          build: "npm run build:vite"
+          build: "npm run build"
           command: "npm run test:e2e"
           tag: "node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},edge"
           browser: "edge"
