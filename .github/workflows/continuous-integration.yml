@@ -132,7 +132,7 @@ jobs:
         run: "npm install"
 
       - name: "build"
-        run: "npm run build:vite"
+        run: "npm run build"
 
   cypress-run:
     name: "Run Cypress tests"
