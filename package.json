@@ -124,7 +124,7 @@
     "rollup-plugin-external-assets": "^4.1.1",
     "rollup-plugin-postcss": "^4.0.2",
     "sass-embedded": "^1.83.4",
-    "start-server-and-test": "^2.0.9",
+    "start-server-and-test": "^2.0.10",
     "stylelint": "^16.13.2",
     "stylelint-config-property-sort-order-smacss": "^10.0.0",
     "stylelint-config-standard": "^37.0.0",
