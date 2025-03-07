@@ -17,7 +17,7 @@ import autoprefixer from 'autoprefixer';
 import postcssDiscardComments from 'postcss-discard-comments';
 import postcssImport from 'postcss-import';
 import postColorConverter from 'postcss-color-converter';
-import postcssLightningcss from 'postcss-lightningcss';
+import stylehacks from 'stylehacks';
 
 export default function (ctx) {
   const root = process.cwd();
@@ -105,19 +105,7 @@ export default function (ctx) {
         debug: ctx.env !== 'production',
         logical: false,
       }),
-      postcssLightningcss({
-        lightningcssOptions: {
-          minify: false,
-          sourceMap: ctx.env !== 'production',
-          cssModules: false,
-          // Individually enable various drafts
-          drafts: {
-            // Enable css nesting (default: undefined)
-            nesting: true,
-            customMedia: true,
-          },
-        },
-      }),
+      stylehacks({ lint: false }),
       postcssColorRgbaFallback,
       autoprefixer({
         add: true,
