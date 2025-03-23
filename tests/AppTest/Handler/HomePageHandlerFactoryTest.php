@@ -17,6 +17,7 @@ use App\Handler\HomePageHandler;
 use App\Handler\HomePageHandlerFactory;
 use Laminas\Form\Factory;
 use Mezzio\Template\TemplateRendererInterface;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
@@ -28,6 +29,8 @@ final class HomePageHandlerFactoryTest extends TestCase
     /**
      * @throws Exception
      * @throws ContainerExceptionInterface
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testFactory(): void
     {
