@@ -72,7 +72,7 @@
     "cypress-axe": "^1.6.0",
     "cypress-real-events": "^1.14.0",
     "cypress-vite": "^1.6.0",
-    "esbuild": "~0.25.1",
+    "esbuild": "~0.25.2",
     "esbuild-plugin-browserslist": "~0.16.0",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
