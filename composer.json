@@ -53,7 +53,7 @@
     "middlewares/client-ip": "^2.1.0",
     "middlewares/firewall": "^2.1.0",
     "middlewares/lowercase": "^1.1.0",
-    "middlewares/payload": "^3.0.2",
+    "middlewares/payload": "^3.1.0",
     "middlewares/referrer-spam": "^2.1.0",
     "middlewares/response-time": "^2.1.0",
     "middlewares/trailing-slash": "^2.1.0",
