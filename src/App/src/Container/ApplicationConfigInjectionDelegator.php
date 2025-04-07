@@ -1,20 +1,33 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * This file is part of the mimmi20/atb package.
+ *
+ * Copyright (c) 2024-2025, Thomas Mueller <mimmi20@live.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types = 1);
 
 namespace App\Container;
 
+use Closure;
 use Mezzio\Application;
+use Mezzio\Container\Exception\InvalidServiceException;
 use Mezzio\Exception\InvalidArgumentException;
+use Mezzio\Exception\InvalidMiddlewareException;
 use Mezzio\MiddlewareFactory;
-use Mezzio\MiddlewareFactoryInterface;
 use Mezzio\Router\Route;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use SplPriorityQueue;
 
 use function array_key_exists;
 use function array_map;
 use function array_reduce;
+use function assert;
 use function get_debug_type;
 use function gettype;
 use function is_array;
@@ -27,56 +40,41 @@ use function sprintf;
 
 use const PHP_INT_MAX;
 
-/**
- * @psalm-import-type MiddlewareParam from MiddlewareFactoryInterface
- * @psalm-type RouteSpec = array{
- *     path: non-empty-string,
- *     middleware: MiddlewareParam,
- *     allowed_methods?: list<string>,
- *     name?: null|non-empty-string,
- *     options?: array<string, mixed>,
- *     ...
- * }
- * @psalm-type MiddlewareSpec = array{
- *     middleware: MiddlewareParam,
- *     path?: non-empty-string,
- *     priority?: int,
- *     ...
- * }
- */
-class ApplicationConfigInjectionDelegator
+final class ApplicationConfigInjectionDelegator
 {
     /**
      * Decorate an Application instance by injecting routes and/or middleware
      * from configuration.
      *
-     * @throws \Mezzio\Container\Exception\InvalidServiceException If the $callback produces
+     * @throws InvalidServiceException if the $callback produces
      *     something other than an `Application` instance, as the delegator cannot
-     *     proceed with its operations.
+     *     proceed with its operations
+     * @throws InvalidMiddlewareException
+     * @throws InvalidArgumentException
+     * @throws ContainerExceptionInterface
+     *
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function __invoke(ContainerInterface $container, string $serviceName, callable $callback): Application
     {
         $application = $callback();
-        if (! $application instanceof Application) {
-            throw new \Mezzio\Container\Exception\InvalidServiceException(sprintf(
+
+        if (!$application instanceof Application) {
+            throw new InvalidServiceException(sprintf(
                 'Delegator factory %s cannot operate on a %s; please map it only to the %s service',
                 self::class,
                 is_object($application) ? $application::class . ' instance' : gettype($application),
-                Application::class
+                Application::class,
             ));
         }
 
-        if (! $container->has('config')) {
+        if (!$container->has('config')) {
             return $application;
         }
 
         /**
          * The array shape is forced here as it cannot be inferred
-         *
-         * @psalm-var array{
-         *     middleware_pipeline?: list<MiddlewareSpec>,
-         *     routes?: array<int|non-empty-string, RouteSpec>,
-         * } $config
+         * @var array{middleware_pipeline?: list<mixed>, routes?: array<int|string, array{path?: non-empty-string, middleware?:array<non-empty-string>|non-empty-string, allowed_methods?: list<string>|null, options?: array<string, mixed>}>} $config
          */
         $config = $container->get('config');
 
@@ -86,6 +84,7 @@ class ApplicationConfigInjectionDelegator
         if ($config['middleware_pipeline'] !== []) {
             $this->injectPipelineFromConfig($container, $application, (array) $config);
         }
+
         if ($config['routes'] !== []) {
             $this->injectRoutesFromConfig($application, (array) $config);
         }
@@ -142,13 +141,17 @@ class ApplicationConfigInjectionDelegator
      * a `Laminas\Stratigility\MiddlewarePipe` instance, with the middleware
      * specified piped in the order provided.
      *
-     * @psalm-param array{
-     *     middleware_pipeline?: list<MiddlewareSpec>,
-     *     ...
-     * } $config
+     * @param array{middleware_pipeline?: list<mixed>} $config
+     *
+     * @throws InvalidMiddlewareException
+     * @throws InvalidArgumentException
+     * @throws ContainerExceptionInterface
      */
-    private function injectPipelineFromConfig(ContainerInterface $container, Application $application, array $config): void
-    {
+    private function injectPipelineFromConfig(
+        ContainerInterface $container,
+        Application $application,
+        array $config,
+    ): void {
         $middlewarePipeline = $config['middleware_pipeline'] ?? [];
 
         if ($middlewarePipeline === []) {
@@ -156,11 +159,12 @@ class ApplicationConfigInjectionDelegator
         }
 
         $factory = $container->get(MiddlewareFactory::class);
+        assert($factory instanceof MiddlewareFactory);
 
         /**
          * Create a priority queue from the specifications
          *
-         * @psalm-var SplPriorityQueue<int, MiddlewareSpec> $queue
+         * @var SplPriorityQueue<int, array{middleware: list<non-empty-string>, path?: string, host?: string}> $queue
          */
         $queue = array_reduce(
             array_map(self::createCollectionMapper(), $middlewarePipeline),
@@ -169,6 +173,7 @@ class ApplicationConfigInjectionDelegator
         );
 
         foreach ($queue as $spec) {
+            assert(is_array($spec));
             $pipe = $factory->prepare($spec['middleware']);
 
             if (array_key_exists('path', $spec)) {
@@ -219,52 +224,54 @@ class ApplicationConfigInjectionDelegator
      * The "options" key may also be omitted, and its interpretation will be
      * dependent on the underlying router used.
      *
-     * @psalm-param array{routes?: array<array-key, RouteSpec>, ...} $config
+     * @phpstan-param array{routes?: array<int|string, array{path?: non-empty-string, middleware?:non-empty-string|array<non-empty-string>, allowed_methods?: list<string>|null, options?: array<string, mixed>}>} $config
+     *
      * @throws InvalidArgumentException
      */
     private function injectRoutesFromConfig(Application $application, array $config): void
     {
         $routes = $config['routes'] ?? [];
-        if (! is_array($routes) || $routes === []) {
+
+        if (!is_array($routes) || $routes === []) {
             return;
         }
 
         foreach ($routes as $key => $spec) {
-            if (! isset($spec['path']) || ! isset($spec['middleware'])) {
+            if (!isset($spec['path']) || !isset($spec['middleware'])) {
                 continue;
             }
 
             $methods = Route::HTTP_METHOD_ANY;
+
             if (isset($spec['allowed_methods'])) {
                 $methods = $spec['allowed_methods'];
-                if (! is_array($methods)) {
+
+                if (!is_array($methods)) {
                     throw new InvalidArgumentException(sprintf(
                         'Allowed HTTP methods for a route must be in form of an array; received "%s"',
-                        gettype($methods)
+                        gettype($methods),
                     ));
                 }
             }
 
-            $name  = $spec['name'] ?? (is_string($key) ? $key : null);
-            $route = $application->route(
-                $spec['path'],
-                $spec['middleware'],
-                $methods,
-                $name
-            );
+            $name = $spec['name'] ?? (is_string($key) ? $key : null);
+            assert((is_string($name) && $name !== '') || $name === null);
+            $route = $application->route($spec['path'], $spec['middleware'], $methods, $name);
 
-            if (isset($spec['options'])) {
-                $options = $spec['options'];
-
-                if (! is_array($options)) {
-                    throw new InvalidArgumentException(sprintf(
-                        'Route options must be an array; received "%s"',
-                        gettype($options)
-                    ));
-                }
-
-                $route->setOptions($options);
+            if (!isset($spec['options'])) {
+                continue;
             }
+
+            $options = $spec['options'];
+
+            if (!is_array($options)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Route options must be an array; received "%s"',
+                    gettype($options),
+                ));
+            }
+
+            $route->setOptions($options);
         }
     }
 
@@ -280,13 +287,14 @@ class ApplicationConfigInjectionDelegator
      * If the 'middleware' value is missing, or not viable as middleware, it
      * raises an exception, to ensure the pipeline is built correctly.
      *
-     * @return callable(MiddlewareSpec): MiddlewareSpec
+     * @return Closure(mixed): non-empty-array<mixed>
+     *
      * @throws InvalidArgumentException
      */
-    private static function createCollectionMapper(): callable
+    private static function createCollectionMapper(): Closure
     {
         return static function ($item): array {
-            if (! is_array($item) || ! array_key_exists('middleware', $item)) {
+            if (!is_array($item) || !array_key_exists('middleware', $item)) {
                 throw new InvalidArgumentException(sprintf(
                     'Invalid pipeline specification received; must be an array'
                     . ' containing a middleware key; received %s',
@@ -310,21 +318,31 @@ class ApplicationConfigInjectionDelegator
      * The function is useful to reduce an array of pipeline middleware to a
      * priority queue.
      *
-     * @return callable(SplPriorityQueue, MiddlewareSpec): SplPriorityQueue
+     * @return Closure(SplPriorityQueue<int, mixed>, array<string, mixed>): SplPriorityQueue<int, mixed>
+     *
+     * @throws void
      */
-    private static function createPriorityQueueReducer(): callable
+    private static function createPriorityQueueReducer(): Closure
     {
         // $serial is used to ensure that items of the same priority are enqueued
         // in the order in which they are inserted.
         $serial = PHP_INT_MAX;
 
+        /*
+         * @param SplPriorityQueue<int, mixed> $queue
+         * @param array<string, mixed> $item
+         *
+         * @return Closure(SplPriorityQueue<int, mixed>, array<string, mixed>): SplPriorityQueue<int, mixed>
+         *
+         * @throws void
+         */
         return static function (SplPriorityQueue $queue, array $item) use (&$serial): SplPriorityQueue {
             $priority = isset($item['priority']) && is_int($item['priority'])
                 ? $item['priority']
                 : 1;
 
             $queue->insert($item, [$priority, $serial]);
-            $serial -= 1;
+            --$serial;
 
             return $queue;
         };

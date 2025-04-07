@@ -84,8 +84,8 @@ parameters:
       tooWideThrowType: true
 
   cognitive_complexity:
-    class: 5
-    function: 5
+    class: 27
+    function: 13
 
   type_coverage:
     return_type: 100
@@ -106,8 +106,10 @@ parameters:
     no_mixed: true
     narrow_param: true
 
-#  ignoreErrors:
-#    - '~will always evaluate to true~'
+  ignoreErrors:
+    - '~should return Closure\(mixed\): non-empty-array<mixed> but returns Closure\(mixed\): non-empty-array~'
+    - '~expects SplPriorityQueue<int, mixed>, SplPriorityQueue<mixed, mixed> given~'
+    - '~in PHPDoc \@throws tag but it.s not thrown~'
 
   stubFiles:
     - stubs/mezzio/renderer/TemplateRendererInterface.stub

@@ -13,19 +13,16 @@ declare(strict_types = 1);
 
 namespace App\Middleware;
 
-use App\Handler\HomePageHandler;
-use Laminas\Form\Factory;
-use Mezzio\Template\TemplateRendererInterface;
 use Middlewares\Lowercase;
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
-
-use function assert;
 
 final class LowercaseFactory
 {
-    /** @throws ContainerExceptionInterface */
+    /**
+     * @throws void
+     *
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     */
     public function __invoke(ContainerInterface $container): Lowercase
     {
         $middleware = new Lowercase();
