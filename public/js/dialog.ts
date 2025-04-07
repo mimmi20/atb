@@ -31,20 +31,7 @@ class Dialog {
     });
   }
 
-  initPopover(): void {
-    const popoverTriggers = document.querySelectorAll<HTMLElement>('[popovertarget]');
-
-    popoverTriggers.forEach((popoverTrigger: HTMLElement): void => {
-      popoverTrigger.addEventListener('click', (event: Event): void => {
-        console.log('Button was clicked');
-
-        event.preventDefault();
-        event.stopPropagation();
-      });
-    });
-  }
-
-  initDialog(dialog: HTMLDialogElement): void {
+  private initDialog(dialog: HTMLDialogElement): void {
     const closeButtons = dialog.querySelectorAll<HTMLButtonElement>('[data-bs-dismiss="modal"]');
 
     closeButtons.forEach((button: HTMLButtonElement): void => {
@@ -60,7 +47,6 @@ class Dialog {
 
   init(): void {
     this.initLayer();
-    this.initPopover();
   }
 }
 
