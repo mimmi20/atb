@@ -69,7 +69,7 @@ legend.form-label, legend.card-title, legend.col-form-label {
     transform-origin: 0 0;
     transition: opacity .1s ease-in-out, transform .1s ease-in-out;
     border: var(--bs-border-width) solid transparent;
-    color: rgba(var(--bs-emphasis-color-rgb), .65);
+    color: rgb(var(--bs-emphasis-color-rgb), .65);
     text-align: start;
     text-overflow: ellipsis;
     white-space: nowrap;
