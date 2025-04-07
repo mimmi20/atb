@@ -250,8 +250,7 @@
     --bs-alert-border-color: var(--bs-form-invalid-border-color);
 }
 
-.btn.info-layer-trigger,
-.btn[popovertarget] {
+.btn.info-layer-trigger {
     --bs-btn-padding-y: 0;
     --bs-btn-padding-x: 0;
     z-index: 100;

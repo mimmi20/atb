@@ -21,6 +21,7 @@ use Mezzio\Router\Middleware as RouterMiddleware;
 use Mezzio\Router\Middleware\RouteMiddlewareFactory;
 use Mezzio\Router\RouteCollector;
 use Mezzio\Router\RouterInterface;
+use Middlewares\Firewall;
 use Mimmi20\Mezzio\Navigation\NavigationMiddleware;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -41,6 +42,11 @@ final class AdminPipelineFactory
 
         // First, create our middleware pipeline
         $pipeline = new MiddlewarePipe();
+        $pipeline->pipe(
+            (new Firewall(['127.0.0.1']))
+                ->blacklist([])
+                ->ipAttribute('client-ip'),
+        );
         // Register the routing middleware in the middleware pipeline.
         // This middleware registers the Mezzio\Router\RouteResult request attribute.
         // module-specific!

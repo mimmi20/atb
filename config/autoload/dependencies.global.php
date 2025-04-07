@@ -10,20 +10,24 @@
 
 declare(strict_types = 1);
 
+use App\Container\ApplicationConfigInjectionDelegator;
 use App\Handler\AdminPageHandler;
 use App\Handler\AdminPageHandlerFactory;
 use App\Handler\HomePageHandler;
 use App\Handler\HomePageHandlerFactory;
+use App\Middleware\LowercaseFactory;
+use App\Middleware\TrailingSlashFactory;
 use App\Pipeline\AdminPipelineFactory;
 use App\Pipeline\DefaultPipelineFactory;
 use Laminas\Form\Factory;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Mezzio\Application;
-use Mezzio\Container\ApplicationConfigInjectionDelegator;
 use Mezzio\Router\LaminasRouter;
 use Mezzio\Router\Middleware\RouteMiddlewareFactory;
 use Mezzio\Helper\UrlHelperFactory;
 use Mezzio\Helper\UrlHelperMiddlewareFactory;
+use Middlewares\Lowercase;
+use Middlewares\TrailingSlash;
 
 return [
     // Provides application-wide services.
@@ -43,13 +47,16 @@ return [
             AdminPageHandler::class => AdminPageHandlerFactory::class,
             Factory::class => InvokableFactory::class,
 
+            Lowercase::class => LowercaseFactory::class,
+            TrailingSlash::class => TrailingSlashFactory::class,
+
             'admin-router-middleware'   => new RouteMiddlewareFactory('admin-router'),
             'admin-url-helper'          => new UrlHelperFactory('/admin', 'admin-router'),
             'admin-url-middleware'      => new UrlHelperMiddlewareFactory('admin-url-helper'),
             'admin-pipeline'            => AdminPipelineFactory::class,
 
             'default-router-middleware' => new RouteMiddlewareFactory('default-router'),
-            'default-url-helper'        => new UrlHelperFactory('/api', 'default-router'),
+            'default-url-helper'        => new UrlHelperFactory('/', 'default-router'),
             'default-url-middleware'    => new UrlHelperMiddlewareFactory('default-url-helper'),
             'default-pipeline'          => DefaultPipelineFactory::class,
         ],
