@@ -56,7 +56,7 @@
     "middlewares/payload": "^3.0.2",
     "middlewares/referrer-spam": "^2.1.0",
     "middlewares/response-time": "^2.1.0",
-    "middlewares/trailing-slash": "^2.0.3",
+    "middlewares/trailing-slash": "^2.1.0",
     "mimmi20/laminas-form-element-group": "^4.0.0",
     "mimmi20/laminas-form-element-links": "^3.0.0",
     "mimmi20/laminas-form-element-paragraph": "^3.0.0",
