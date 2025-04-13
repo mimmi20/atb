@@ -1,6 +1,5 @@
 /* global process */
 
-import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
 import postcssPxtorem from 'postcss-pxtorem';
 import postcssPresetEnv from 'postcss-preset-env';
 import cssnano from 'cssnano';
@@ -138,7 +137,6 @@ export default function (ctx) {
         logical: false,
       }),
       stylehacks({ lint: false }),
-      postcssColorRgbaFallback,
       autoprefixer({
         add: true,
         remove: true,
