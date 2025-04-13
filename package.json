@@ -151,7 +151,6 @@
   },
   "overrides": {
     "cross-spawn": "^7.0.6",
-    "execa": "^9.5.2",
     "find-versions": "^6.0.0",
     "got": "^11.8.3",
     "eslint": "$eslint",
