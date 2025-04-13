@@ -62,9 +62,11 @@ jobs:
       skip-phpstan: false
       skip-rector: false
       skip-eslint: false
-      skip-oxlint: false
       skip-stylelint: false
       skip-prettier: false
+      skip-nasm-install: false
+      skip-libimagequant-install: false
+      skip-oxlint: false
       phpcs-options: ""
 
   tests:
