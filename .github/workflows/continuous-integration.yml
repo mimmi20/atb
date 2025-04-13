@@ -31,6 +31,7 @@ jobs:
       skip-check-composer: true
       skip-ec-checker: false
       dependency-analyser-options: ""
+      skip-nasm-install: false
 
   install:
     name: "Install Project"
