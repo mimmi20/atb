@@ -26,6 +26,15 @@ jobs:
         with:
           node-version: "22"
 
+      - name: "Set up NASM (for imagemin binary builds)"
+        uses: "ilammy/setup-nasm@v1"
+
+      - name: "install libimagequant-dev"
+        run: "sudo apt-get install libimagequant-dev -y"
+
+      - name: "install libpng-dev"
+        run: "sudo apt-get install libpng-dev -y"
+
       - name: "Check workflow files"
         uses: "raven-actions/actionlint@v2"
         with:
