@@ -31,7 +31,6 @@ jobs:
       skip-check-composer: true
       skip-ec-checker: false
       dependency-analyser-options: ""
-      skip-nasm-install: false
 
   install:
     name: "Install Project"
@@ -45,6 +44,8 @@ jobs:
       composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
       skip-php-install: false
       skip-npm-install: false
+      skip-nasm-install: false
+      skip-libimagequant-install: false
 
   analytics:
     name: "Project Analysis"
