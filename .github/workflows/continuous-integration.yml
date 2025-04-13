@@ -60,6 +60,7 @@ jobs:
       skip-phpstan: false
       skip-rector: false
       skip-eslint: false
+      skip-oxlint: false
       skip-stylelint: false
       skip-prettier: false
       phpcs-options: ""
