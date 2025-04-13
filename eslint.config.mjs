@@ -2,11 +2,13 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettierConfig from 'eslint-config-prettier';
 import prettier from 'eslint-plugin-prettier';
+import oxlint from 'eslint-plugin-oxlint';
 
 export default tseslint.config(
   eslint.configs.recommended,
   prettierConfig,
   ...tseslint.configs.recommended,
+  ...oxlint.buildFromOxlintConfigFile('./.oxlintrc.json'),
   {
     plugins: {
       prettier: prettier,

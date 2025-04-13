@@ -44,6 +44,8 @@ jobs:
       composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
       skip-php-install: false
       skip-npm-install: false
+      skip-nasm-install: false
+      skip-libimagequant-install: false
 
   analytics:
     name: "Project Analysis"
@@ -62,6 +64,9 @@ jobs:
       skip-eslint: false
       skip-stylelint: false
       skip-prettier: false
+      skip-nasm-install: false
+      skip-libimagequant-install: false
+      skip-oxlint: false
       phpcs-options: ""
 
   tests:
@@ -120,8 +125,14 @@ jobs:
           lfs: false
           persist-credentials: false
 
+      - name: "Set up NASM (for imagemin binary builds)"
+        uses: "ilammy/setup-nasm@v1"
+
       - name: "install libimagequant-dev"
         run: "sudo apt-get install libimagequant-dev -y"
+
+      - name: "install libpng-dev"
+        run: "sudo apt-get install libpng-dev -y"
 
       - name: "Use Node.js ${{ matrix.node-version }}"
         uses: "actions/setup-node@v4"
@@ -170,8 +181,14 @@ jobs:
           lfs: false
           persist-credentials: false
 
+      - name: "Set up NASM (for imagemin binary builds)"
+        uses: "ilammy/setup-nasm@v1"
+
       - name: "install libimagequant-dev"
         run: "sudo apt-get install libimagequant-dev -y"
+
+      - name: "install libpng-dev"
+        run: "sudo apt-get install libpng-dev -y"
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@2.32.0"

@@ -1,13 +1,13 @@
 import { defineConfig } from 'vite';
 import * as path from 'path';
 import viteImagemin from '@vheemstra/vite-plugin-imagemin';
-import imageminJpegtran from '@yeanzhi/imagemin-jpegtran';
+import imageminJpegtran from 'imagemin-jpegtran';
 import imageminPngquant from '@localnerve/imagemin-pngquant';
 import imageminGif from '@localnerve/imagemin-gifsicle';
-import imageminWebp from '@yeanzhi/imagemin-webp';
+import imageminWebp from 'imagemin-webp';
 import imageminGifToWebp from 'imagemin-gif2webp';
 import imageminAviv from '@vheemstra/imagemin-avifenc';
-import imageminSvgo from '@koddsson/imagemin-svgo';
+import imageminSvgo from 'imagemin-svgo';
 import { resolveToEsbuildTarget } from 'esbuild-plugin-browserslist';
 import browserslist from 'browserslist';
 import { compression } from 'vite-plugin-compression2';
