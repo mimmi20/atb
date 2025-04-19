@@ -86,6 +86,8 @@ jobs:
       skip-phpunit: false
       skip-vitest: true
       skip-stryker: true
+      skip-nasm-install: false
+      skip-libimagequant-install: false
       upload-codecov: true
       upload-codeclimate: true
       upload-coveralls: false
@@ -115,6 +117,7 @@ jobs:
 
         node-version:
           - "22"
+          - "23"
 
     steps:
       - name: "Checkout"
@@ -165,6 +168,7 @@ jobs:
 
         node-version:
           - "22"
+          - "23"
 
         php-version:
           - "8.3"
