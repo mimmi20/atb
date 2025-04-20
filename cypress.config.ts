@@ -1,6 +1,6 @@
 import { defineConfig } from 'cypress';
 import vitePreprocessor from 'cypress-vite';
-import codeCoverageTask from '@cypress/code-coverage/task';
+// import codeCoverageTask from '@cypress/code-coverage/task';
 
 export default defineConfig({
   env: {
@@ -12,7 +12,7 @@ export default defineConfig({
     baseUrl: 'http://localhost:8082',
     supportFile: 'cypress/support/e2e.ts',
     setupNodeEvents(on, config) {
-      codeCoverageTask(on, config);
+      // codeCoverageTask(on, config);
 
       on(
         'file:preprocessor',
