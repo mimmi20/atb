@@ -148,4 +148,24 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    include: ['test/**/*.test.ts'],
+    setupFiles: ['test/setup.ts'],
+    clearMocks: true,
+
+    reporters: ['default', 'junit'],
+    outputFile: {
+      junit: './junit-report.xml',
+      html: './json-report.html',
+    },
+
+    coverage: {
+      provider: 'istanbul',
+      enabled: true,
+      reporter: ['clover', 'text', 'html', 'lcov', 'lcovonly'],
+      reportsDirectory: '.reports',
+      include: ['src'],
+    },
+    testTimeout: 20000,
+  },
 });
