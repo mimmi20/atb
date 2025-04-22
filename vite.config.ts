@@ -1,3 +1,4 @@
+import zlib from 'zlib';
 import { defineConfig } from 'vite';
 import * as path from 'path';
 import viteImagemin from '@vheemstra/vite-plugin-imagemin';
@@ -11,6 +12,8 @@ import imageminSvgo from 'imagemin-svgo';
 import { resolveToEsbuildTarget } from 'esbuild-plugin-browserslist';
 import browserslist from 'browserslist';
 import { compression } from 'vite-plugin-compression2';
+import autoOrigin from 'vite-plugin-auto-origin';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const target = resolveToEsbuildTarget(browserslist('defaults'), {
   printUnknownTargets: false,
@@ -37,43 +40,86 @@ const SvgoOpts = {
   ],
 };
 
+const br = compression({
+  algorithm: 'brotliCompress',
+  deleteOriginalAssets: false,
+  skipIfLargerOrEqual: false,
+  compressionOptions: {
+    params: {
+      [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+      [zlib.constants.BROTLI_PARAM_MODE]: 1,
+      [zlib.constants.BROTLI_PARAM_LGWIN]: 24,
+    },
+  },
+  include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/,
+});
+
+const deflate = compression({
+  algorithm: 'deflate',
+  deleteOriginalAssets: false,
+  skipIfLargerOrEqual: false,
+  compressionOptions: {
+    level: 9,
+  },
+  include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/,
+});
+
+const gzip = compression({
+  algorithm: 'gzip',
+  deleteOriginalAssets: false,
+  skipIfLargerOrEqual: false,
+  compressionOptions: {
+    level: 9,
+  },
+  include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/,
+});
+
+const imageMin = viteImagemin({
+  plugins: {
+    jpg: imageminJpegtran(),
+    png: imageminPngquant({
+      quality: [0.8, 1],
+    }),
+    gif: imageminGif(),
+    svg: imageminSvgo(SvgoOpts),
+  },
+  onlyAssets: true,
+  skipIfLarger: true,
+  clearCache: true,
+  makeWebp: {
+    plugins: {
+      jpg: imageminWebp({ quality: 100 }),
+      png: imageminWebp({ quality: 100 }),
+      gif: imageminGifToWebp({ quality: 82 }),
+    },
+    skipIfLargerThan: 'optimized',
+  },
+  makeAvif: {
+    plugins: {
+      jpg: imageminAviv({ lossless: true }),
+      png: imageminAviv({ lossless: true }),
+    },
+    skipIfLargerThan: 'optimized',
+  },
+});
+
+const copy = viteStaticCopy({
+  targets: [
+    {
+      src: 'src/assets/',
+      dest: './',
+    },
+  ],
+});
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineConfig({
   appType: 'custom',
   root: __dirname,
   publicDir: 'public',
   base: '/dist/',
-  plugins: [
-    viteImagemin({
-      plugins: {
-        jpg: imageminJpegtran(),
-        png: imageminPngquant({
-          quality: [0.8, 1],
-        }),
-        gif: imageminGif(),
-        svg: imageminSvgo(SvgoOpts),
-      },
-      onlyAssets: true,
-      skipIfLarger: true,
-      clearCache: true,
-      makeWebp: {
-        plugins: {
-          jpg: imageminWebp({ quality: 100 }),
-          png: imageminWebp({ quality: 100 }),
-          gif: imageminGifToWebp({ quality: 82 }),
-        },
-        skipIfLargerThan: 'optimized',
-      },
-      makeAvif: {
-        plugins: {
-          jpg: imageminAviv({ lossless: true }),
-          png: imageminAviv({ lossless: true }),
-        },
-        skipIfLargerThan: 'optimized',
-      },
-    }),
-    compression({ deleteOriginalAssets: false, skipIfLargerOrEqual: true, algorithm: 'gzip', include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/ }),
-    compression({ deleteOriginalAssets: false, skipIfLargerOrEqual: true, algorithm: 'brotliCompress', include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/ }),
-  ],
+  plugins: [copy, imageMin, br, gzip, deflate, autoOrigin()],
   server: {
     host: 'localhost',
     port: 8082,
@@ -81,6 +127,10 @@ export default defineConfig({
     hmr: {
       host: 'localhost',
       clientPort: 8082,
+      overlay: true,
+    },
+    watch: {
+      usePolling: true,
     },
     origin: 'http://localhost:8082',
   },
@@ -90,7 +140,8 @@ export default defineConfig({
     assetsDir: 'assets/',
     emptyOutDir: true,
     copyPublicDir: false,
-    minify: false,
+    minify: isProduction ? 'esbuild' : false,
+    sourcemap: !isProduction,
     manifest: true,
     assetsInlineLimit: 0,
     rollupOptions: {
