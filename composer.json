@@ -43,7 +43,7 @@
     "laminas/laminas-validator": "^2.64.1",
     "laminas/laminas-view": "^2.36.0",
     "matomo/referrer-spam-blacklist": "dev-master",
-    "mezzio/mezzio": "^3.20.1",
+    "mezzio/mezzio": "^3.21.0",
     "mezzio/mezzio-authentication": "^1.10.0",
     "mezzio/mezzio-helpers": "^5.18.0",
     "mezzio/mezzio-laminasrouter": "^3.11.0",
