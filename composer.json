@@ -41,7 +41,7 @@
     "laminas/laminas-stdlib": "^3.20.0",
     "laminas/laminas-stratigility": "^3.13.0",
     "laminas/laminas-validator": "^2.64.1",
-    "laminas/laminas-view": "^2.36.0",
+    "laminas/laminas-view": "^2.37.0",
     "matomo/referrer-spam-blacklist": "dev-master",
     "mezzio/mezzio": "^3.21.0",
     "mezzio/mezzio-authentication": "^1.10.0",
