@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.5",
-    "bootstrap-icons": "^1.11.3",
+    "bootstrap-icons": "^1.12.1",
     "bootswatch": "^5.3.5",
     "chart.js": "^4.4.9",
     "moment": "^2.30.1"
