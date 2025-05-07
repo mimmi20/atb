@@ -103,7 +103,7 @@
     "postcss-input-style": "github:mimmi20/postcss-input-style#master",
     "postcss-load-config": "^6.0.1",
     "postcss-media-minmax": "^5.0.0",
-    "postcss-merge-longhand": "^7.0.4",
+    "postcss-merge-longhand": "^7.0.5",
     "postcss-merge-rules": "^7.0.4",
     "postcss-modules": "^6.0.1",
     "postcss-nested": "^7.0.2",
