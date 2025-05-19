@@ -74,7 +74,7 @@
     "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-oxlint": "^0.16.10",
+    "eslint-plugin-oxlint": "^0.16.11",
     "eslint-plugin-prettier": "^5.4.0",
     "imagemin": "^9.0.1",
     "imagemin-gif2webp": "^3.0.0",
