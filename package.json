@@ -46,7 +46,7 @@
     "@cypress/code-coverage": "^3.14.3",
     "@eslint/js": "^9.27.0",
     "@localnerve/imagemin-gifsicle": "^10.4.0",
-    "@localnerve/imagemin-pngquant": "^12.3.3",
+    "@localnerve/imagemin-pngquant": "^12.4.0",
     "@types/bootstrap": "^5.2.10",
     "@types/chart.js": "^2.9.41",
     "@types/intl": "^1.2.2",
