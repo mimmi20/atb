@@ -144,7 +144,7 @@
     "supports-color": "^10.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.33.0",
+    "typescript-eslint": "^8.33.1",
     "vite": "^6.3.5",
     "vite-plugin-auto-origin": "^1.2.1",
     "vite-plugin-compression2": "^1.4.0",
