@@ -65,7 +65,7 @@
     "css-declaration-sorter": "^7.2.0",
     "cssnano": "^7.0.7",
     "cssnano-preset-default": "^7.0.7",
-    "cypress": "^14.4.0",
+    "cypress": "^14.4.1",
     "cypress-axe": "^1.6.0",
     "cypress-real-events": "^1.14.0",
     "cypress-vite": "^1.6.0",
