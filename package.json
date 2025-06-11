@@ -126,7 +126,7 @@
     "prettier-eslint": "^16.4.2",
     "rollup": "^4.42.0",
     "rtlcss": "^4.3.0",
-    "sass-embedded": "^1.89.1",
+    "sass-embedded": "^1.89.2",
     "start-server-and-test": "^2.0.12",
     "stylehacks": "^7.0.5",
     "stylelint": "^16.20.0",
