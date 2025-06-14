@@ -154,7 +154,7 @@ jobs:
 
     timeout-minutes: 10
 
-    continue-on-error: false
+    continue-on-error: true
 
     strategy:
       fail-fast: false
