@@ -102,7 +102,7 @@ jobs:
 
     needs: 'tests'
 
-    runs-on: '${{ matrix.operating-system }}'
+    runs-on: 'ubuntu-latest'
 
     timeout-minutes: 10
 
@@ -112,9 +112,6 @@ jobs:
       fail-fast: false
 
       matrix:
-        operating-system:
-          - 'ubuntu-24.04'
-
         node-version:
           - '22'
           - '24'
@@ -153,7 +150,7 @@ jobs:
 
     needs: 'tests'
 
-    runs-on: '${{ matrix.operating-system }}'
+    runs-on: 'ubuntu-latest'
 
     timeout-minutes: 10
 
@@ -163,18 +160,15 @@ jobs:
       fail-fast: false
 
       matrix:
-        operating-system:
-          - 'ubuntu-24.04'
-
         node-version:
           - '22'
           - '24'
 
-        php-version:
-          - '8.3'
-
-        dependencies:
-          - 'lowest'
+        browser:
+          - 'electron'
+          - 'chrome'
+          - 'firefox'
+          - 'edge'
 
     steps:
       - name: 'Checkout'
@@ -197,10 +191,10 @@ jobs:
       - name: 'Install PHP'
         uses: 'shivammathur/setup-php@2.34.1'
         with:
-          php-version: '${{ matrix.php-version }}'
-          extensions: 'none, phar, json, opcache, ctype, curl, dom, fileinfo, iconv, intl, mbstring, simplexml, tokenizer, xml, xmlwriter'
-          ini-values: 'opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage'
-          coverage: 'xdebug'
+          php-version: '8.3'
+          extensions: 'none, phar, json, opcache, ctype, curl, dom, fileinfo, iconv, intl, mbstring'
+          ini-values: 'opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0'
+          coverage: 'none'
           tools: 'composer:v2'
         env:
           fail-fast: true
@@ -211,7 +205,7 @@ jobs:
       - name: 'Update dependencies with composer'
         uses: 'ramsey/composer-install@3.1.1'
         with:
-          dependency-versions: '${{ matrix.dependencies }}'
+          dependency-versions: 'lowest'
           composer-options: '--optimize-autoloader --prefer-dist --prefer-stable -v'
 
       - name: 'Use Node.js ${{ matrix.node-version }}'
@@ -222,54 +216,12 @@ jobs:
       - name: 'install dependencies'
         run: 'npm install'
 
-      - name: 'E2E on Electron on Node v${{ matrix.node-version }}'
+      - name: 'E2E on "${{ matrix.browser }}" on Node ${{ matrix.node-version }}'
         uses: 'cypress-io/github-action@v6'
         with:
           build: 'npm run build'
           command: 'npm run test:e2e'
-          tag: 'node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},electron'
-        env:
-          # Get the short ref name of the branch that triggered the workflow run
-          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 'E2E on Chrome on Node v${{ matrix.node-version }}'
-        uses: 'cypress-io/github-action@v6'
-        with:
-          install: false
-          build: 'npm run build'
-          command: 'npm run test:e2e'
-          tag: 'node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},chrome'
-          browser: 'chrome'
-        env:
-          # Get the short ref name of the branch that triggered the workflow run
-          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 'E2E on Firefox on Node v${{ matrix.node-version }}'
-        uses: 'cypress-io/github-action@v6'
-        with:
-          install: false
-          build: 'npm run build'
-          command: 'npm run test:e2e'
-          tag: 'node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},firefox'
-          browser: 'firefox'
-        env:
-          # Get the short ref name of the branch that triggered the workflow run
-          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 'E2E on Edge on Node v${{ matrix.node-version }}'
-        uses: 'cypress-io/github-action@v6'
-        with:
-          install: false
-          build: 'npm run build'
-          command: 'npm run test:e2e'
-          tag: 'node-${{ matrix.node-version }},php-${{ matrix.php-version }},${{ matrix.operating-system }},edge'
-          browser: 'edge'
+          browser: '${{ matrix.browser }}'
         env:
           # Get the short ref name of the branch that triggered the workflow run
           COMMIT_INFO_BRANCH: ${{ github.ref_name }}
@@ -281,7 +233,7 @@ jobs:
   tests-status:
     name: 'Unit & Integration Tests Status'
 
-    runs-on: 'ubuntu-24.04'
+    runs-on: 'ubuntu-latest'
 
     if: always()
 
