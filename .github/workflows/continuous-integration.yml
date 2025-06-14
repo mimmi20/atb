@@ -228,6 +228,13 @@ jobs:
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Creates and uploads GitHub artifacts in case of failure
+      - uses: 'actions/upload-artifact@v1'
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
   # This is a meta job to avoid to have to constantly change the protection rules
   # whenever we touch the matrix.
   tests-status:
