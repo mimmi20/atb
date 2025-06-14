@@ -232,8 +232,8 @@ jobs:
       - uses: 'actions/upload-artifact@v4'
         if: failure()
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+          name: 'cypress-screenshots-${{ matrix.browser }}-node${{ matrix.node-version }}'
+          path: 'cypress/screenshots'
 
   # This is a meta job to avoid to have to constantly change the protection rules
   # whenever we touch the matrix.

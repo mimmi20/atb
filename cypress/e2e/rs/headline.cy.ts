@@ -34,7 +34,7 @@ describe('teste die Startseite', () => {
     // we include it in our beforeEach function so that it runs before each test
     cy.visit('/');
     cy.injectAxe({ axeCorePath: 'node_modules/axe-core/axe.min.js' });
-    cy.wait(100);
+    cy.wait(1000);
   });
 
   it('prüfe Headline', () => {
