@@ -35,9 +35,11 @@ describe('teste die Startseite', () => {
     cy.visit('/');
     cy.injectAxe({ axeCorePath: 'node_modules/axe-core/axe.min.js' });
     cy.wait(1000);
+    cy.screenshot();
   });
 
   it('prüfe Headline', () => {
+    cy.screenshot();
     //cy.get('.sxr__headline-calculator span').should('have.length', 1)
     cy.get('.card-header').first().should('have.text', 'Alttarifbewertung');
   });
