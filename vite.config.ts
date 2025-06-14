@@ -1,19 +1,13 @@
 import zlib from 'zlib';
 import { defineConfig } from 'vite';
 import * as path from 'path';
-import viteImagemin from '@vheemstra/vite-plugin-imagemin';
-import imageminJpegtran from 'imagemin-jpegtran';
-import imageminPngquant from '@localnerve/imagemin-pngquant';
-import imageminGif from '@localnerve/imagemin-gifsicle';
-import imageminWebp from 'imagemin-webp';
-import imageminGifToWebp from 'imagemin-gif2webp';
-import imageminAviv from '@vheemstra/imagemin-avifenc';
-import imageminSvgo from 'imagemin-svgo';
 import { resolveToEsbuildTarget } from 'esbuild-plugin-browserslist';
 import browserslist from 'browserslist';
-import { compression } from 'vite-plugin-compression2';
+import { compression, defineAlgorithm } from 'vite-plugin-compression2';
 import autoOrigin from 'vite-plugin-auto-origin';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+// import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { NodePackageImporter } from 'sass-embedded';
 
 const target = resolveToEsbuildTarget(browserslist('defaults'), {
   printUnknownTargets: false,
@@ -26,7 +20,7 @@ const SvgoOpts = {
       name: 'preset-default',
       params: {
         overrides: {
-          removeViewBox: false,
+          removeViewBox: false, // https://github.com/svg/svgo/issues/1128
           removeComments: true,
           cleanupNumericValues: {
             floatPrecision: 2,
@@ -35,82 +29,84 @@ const SvgoOpts = {
             shortname: false,
           },
         },
+        cleanupIDs: {
+          minify: false,
+          remove: false,
+        },
+        convertPathData: false,
+      },
+    },
+    'sortAttrs',
+    {
+      name: 'addAttributesToSVGElement',
+      params: {
+        attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
       },
     },
   ],
 };
 
-const br = compression({
-  algorithm: 'brotliCompress',
-  deleteOriginalAssets: false,
-  skipIfLargerOrEqual: false,
-  compressionOptions: {
-    params: {
-      [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
-      [zlib.constants.BROTLI_PARAM_MODE]: 1,
-      [zlib.constants.BROTLI_PARAM_LGWIN]: 24,
-    },
+const minifyOptions = {
+  test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
+  includePublic: true,
+  logStats: true,
+  ansiColors: true,
+  svg: SvgoOpts,
+  png: {
+    // https://sharp.pixelplumbing.com/api-output#png
+    quality: 100,
   },
-  include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/,
-});
-
-const deflate = compression({
-  algorithm: 'deflate',
-  deleteOriginalAssets: false,
-  skipIfLargerOrEqual: false,
-  compressionOptions: {
-    level: 9,
+  jpeg: {
+    // https://sharp.pixelplumbing.com/api-output#jpeg
+    quality: 100,
   },
-  include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/,
-});
-
-const gzip = compression({
-  algorithm: 'gzip',
-  deleteOriginalAssets: false,
-  skipIfLargerOrEqual: false,
-  compressionOptions: {
-    level: 9,
+  jpg: {
+    // https://sharp.pixelplumbing.com/api-output#jpeg
+    quality: 100,
   },
-  include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/,
-});
+  tiff: {
+    // https://sharp.pixelplumbing.com/api-output#tiff
+    quality: 100,
+  },
+  // gif does not support lossless compression
+  // https://sharp.pixelplumbing.com/api-output#gif
+  gif: {},
+  webp: {
+    // https://sharp.pixelplumbing.com/api-output#webp
+    lossless: true,
+  },
+  avif: {
+    // https://sharp.pixelplumbing.com/api-output#avif
+    lossless: true,
+  },
+  cache: false,
+  cacheLocation: undefined,
+};
 
-const imageMin = viteImagemin({
-  plugins: {
-    jpg: imageminJpegtran(),
-    png: imageminPngquant({
-      quality: [0.8, 1],
+const compress = compression({
+  algorithms: [
+    defineAlgorithm('gzip', { level: 9 }),
+    defineAlgorithm('brotliCompress', {
+      params: {
+        [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+        [zlib.constants.BROTLI_PARAM_MODE]: 1,
+        [zlib.constants.BROTLI_PARAM_LGWIN]: 24,
+      },
     }),
-    gif: imageminGif(),
-    svg: imageminSvgo(SvgoOpts),
-  },
-  onlyAssets: true,
-  skipIfLarger: true,
-  clearCache: true,
-  makeWebp: {
-    plugins: {
-      jpg: imageminWebp({ quality: 100 }),
-      png: imageminWebp({ quality: 100 }),
-      gif: imageminGifToWebp({ quality: 82 }),
-    },
-    skipIfLargerThan: 'optimized',
-  },
-  makeAvif: {
-    plugins: {
-      jpg: imageminAviv({ lossless: true }),
-      png: imageminAviv({ lossless: true }),
-    },
-    skipIfLargerThan: 'optimized',
-  },
+  ],
+  deleteOriginalAssets: false,
+  skipIfLargerOrEqual: true,
+  include: /\.(html|css|js|cjs|mjs|svg|woff|woff2|json|jpeg|jpg|gif|png|webp|avif)$/,
 });
 
-const copy = viteStaticCopy({
-  targets: [
-    {
-      src: 'src/assets/',
-      dest: './',
-    },
-  ],
-});
+// const copy = viteStaticCopy({
+//   targets: [
+//     {
+//       src: 'src/assets/',
+//       dest: './',
+//     },
+//   ],
+// });
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -119,7 +115,7 @@ export default defineConfig({
   root: __dirname,
   publicDir: 'public',
   base: '/dist/',
-  plugins: [copy, imageMin, br, gzip, deflate, autoOrigin()],
+  plugins: [ViteImageOptimizer(minifyOptions), compress, autoOrigin()],
   server: {
     host: 'localhost',
     port: 8082,
@@ -135,7 +131,7 @@ export default defineConfig({
     origin: 'http://localhost:8082',
   },
   build: {
-    target: target,
+    target,
     outDir: 'public/dist', // relative to the `root` folder
     assetsDir: 'assets/',
     emptyOutDir: true,
@@ -171,6 +167,12 @@ export default defineConfig({
         path.resolve(__dirname, 'node_modules/bootswatch/dist/morph/bootstrap.css'),
         path.resolve(__dirname, 'node_modules/bootswatch/dist/quartz/bootstrap.css'),
         // path.resolve(__dirname, 'node_modules/bootswatch/dist/materia/bootstrap.css'),
+        // images
+        path.resolve(__dirname, 'public/img/albatros/albatros_logo_blue.svg'),
+        path.resolve(__dirname, 'public/img/finumpriv/FINUM_Logo_RGB.svg'),
+        path.resolve(__dirname, 'public/img/smobile/logo.png'),
+        path.resolve(__dirname, 'public/img/smobile/logo_125x50.png'),
+        path.resolve(__dirname, 'public/img/favicon.ico'),
       ],
       output: {
         // dir: 'public/dist',
@@ -196,6 +198,9 @@ export default defineConfig({
         alertAscii: true,
         alertColor: true,
         verbose: true,
+        importers: [new NodePackageImporter(process.cwd())],
+        quietDeps: true,
+        fatalDeprecations: ['legacy-js-api'],
       },
     },
   },
@@ -204,7 +209,7 @@ export default defineConfig({
     setupFiles: ['test/setup.ts'],
     clearMocks: true,
 
-    reporters: ['default', 'junit'],
+    reporters: ['default', 'junit', process.env.GITHUB_ACTIONS ? 'github-actions' : 'html'],
     outputFile: {
       junit: './junit-report.xml',
       html: './json-report.html',

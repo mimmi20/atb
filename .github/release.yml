@@ -1,38 +1,38 @@
 changelog:
   exclude:
     labels:
-      - "duplicate"
-      - "question"
-      - "invalid"
-      - "wontfix"
+      - 'duplicate'
+      - 'question'
+      - 'invalid'
+      - 'wontfix'
   categories:
-    - title: "**💥 Breaking:**"
+    - title: '**💥 Breaking:**'
       labels:
-        - "bc break"
-    - title: "**🍰 Enhancements:**"
+        - 'bc break'
+    - title: '**🍰 Enhancements:**'
       labels:
-        - "enhancement"
-    - title: "**🐞 Bugs:**"
+        - 'enhancement'
+    - title: '**🐞 Bugs:**'
       labels:
-        - "bug"
-    - title: "**💀 Deprecated:**"
+        - 'bug'
+    - title: '**💀 Deprecated:**'
       labels:
-        - "deprecated"
-    - title: "**🗑 Removed:**"
+        - 'deprecated'
+    - title: '**🗑 Removed:**'
       labels:
-        - "removed"
-    - title: "**🛡 Security:**"
+        - 'removed'
+    - title: '**🛡 Security:**'
       labels:
-        - "security"
-    - title: "**🕸 Dependencies:**"
+        - 'security'
+    - title: '**🕸 Dependencies:**'
       labels:
-        - "dependencies"
-    - title: "**🧹 Maintenance:**"
+        - 'dependencies'
+    - title: '**🧹 Maintenance:**'
       labels:
-        - "maintenance"
-    - title: "**📦 Documentation:**"
+        - 'maintenance'
+    - title: '**📦 Documentation:**'
       labels:
-        - "documentation"
-    - title: "** Other Changes **"
+        - 'documentation'
+    - title: '** Other Changes **'
       labels:
-        - "*"
+        - '*'

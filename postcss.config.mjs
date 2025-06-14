@@ -49,7 +49,7 @@ export default function (ctx) {
 
   return {
     plugins: [
-      postcssImport({ root: root }),
+      postcssImport({ root }),
       postcssInputStyle,
       postcssFlexbugsFixes,
       postcssPseudoColons({

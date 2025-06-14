@@ -1,11 +1,11 @@
-name: "Auto approve"
+name: 'Auto approve'
 
 on:
   - pull_request_target
 
 jobs:
   auto-approve:
-    runs-on: "ubuntu-24.04"
+    runs-on: 'ubuntu-latest'
 
     if: ${{ github.actor == 'dependabot[bot]' }}
 
@@ -13,7 +13,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: "fastify/github-action-merge-dependabot@v3"
+      - uses: 'fastify/github-action-merge-dependabot@v3'
         with:
           approve-only: true
           github-token: ${{ secrets.GITHUB_TOKEN }}

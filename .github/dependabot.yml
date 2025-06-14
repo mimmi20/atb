@@ -5,84 +5,84 @@
 version: 2
 
 updates:
-  - package-ecosystem: "composer"
+  - package-ecosystem: 'composer'
 
-    directory: "/"
+    directory: '/'
 
     schedule:
-      interval: "daily"
-      time: "04:00"
-      timezone: "Europe/Berlin"
+      interval: 'daily'
+      time: '04:00'
+      timezone: 'Europe/Berlin'
 
     open-pull-requests-limit: 10
 
     assignees:
-      - "mimmi20"
+      - 'mimmi20'
 
     labels:
-      - "dependencies"
+      - 'dependencies'
 
-    versioning-strategy: "increase"
+    versioning-strategy: 'increase'
 
-    target-branch: "master"
+    target-branch: 'master'
 
     commit-message:
-      include: "scope"
-      prefix: "composer"
+      include: 'scope'
+      prefix: 'composer'
 
-    rebase-strategy: "auto"
+    rebase-strategy: 'auto'
 
-  - package-ecosystem: "npm"
+  - package-ecosystem: 'npm'
 
-    directory: "/"
+    directory: '/'
 
     schedule:
-      interval: "daily"
-      time: "04:00"
-      timezone: "Europe/Berlin"
+      interval: 'daily'
+      time: '04:00'
+      timezone: 'Europe/Berlin'
 
     open-pull-requests-limit: 10
 
     assignees:
-      - "mimmi20"
+      - 'mimmi20'
 
     labels:
-      - "dependencies"
+      - 'dependencies'
 
-    versioning-strategy: "increase"
+    versioning-strategy: 'increase'
 
-    target-branch: "master"
+    target-branch: 'master'
 
     commit-message:
-      include: "scope"
-      prefix: "npm"
+      include: 'scope'
+      prefix: 'npm'
 
-    rebase-strategy: "auto"
+    rebase-strategy: 'auto'
 
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: 'github-actions'
 
-    directory: "/"
+    directory: '/'
 
     schedule:
-      interval: "daily"
-      time: "04:00"
-      timezone: "Europe/Berlin"
+      interval: 'daily'
+      time: '04:00'
+      timezone: 'Europe/Berlin'
 
     open-pull-requests-limit: 10
 
     assignees:
-      - "mimmi20"
+      - 'mimmi20'
 
     labels:
-      - "dependencies"
+      - 'dependencies'
 
-    target-branch: "master"
+    target-branch: 'master'
 
     commit-message:
-      prefix: "github-actions"
+      prefix: 'github-actions'
 
     ignore:
-      - dependency-name: "mimmi20/ci"
-      - dependency-name: "release-drafter/release-drafter"
+      - dependency-name: 'mimmi20/ci'
+      - dependency-name: 'release-drafter/release-drafter'
 
-    rebase-strategy: "auto"
+    rebase-strategy: 'auto'

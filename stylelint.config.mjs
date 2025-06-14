@@ -72,11 +72,12 @@ export default {
       true,
       {
         severity: 'warning',
+        disableFix: true,
       },
     ],
 
     // general rules
-    'alpha-value-notation': null, // maybe later -> 'percentage',
+    'alpha-value-notation': ['number', { severity: 'warning', disableFix: true }], // maybe later -> 'percentage'
     'at-rule-empty-line-before': ['always', { ignore: ['after-comment', 'first-nested', 'blockless-after-same-name-blockless'], except: ['first-nested'], ignoreAtRules: ['else'] }],
     'color-function-notation': ['modern', { ignore: ['with-var-inside'] }],
     'color-hex-length': 'short',
@@ -93,11 +94,11 @@ export default {
     'function-url-quotes': 'always',
     'length-zero-no-unit': true,
     'media-feature-name-no-unknown': true,
-    'media-feature-name-no-vendor-prefix': null, // maybe later
+    'media-feature-name-no-vendor-prefix': [true, { severity: 'warning', disableFix: true }],
     'media-feature-range-notation': 'prefix',
     'no-descending-specificity': null, // too much issues
     'no-duplicate-selectors': true,
-    'no-invalid-position-at-import-rule': null,
+    'no-invalid-position-at-import-rule': [true, { severity: 'warning', disableFix: true }],
     'number-max-precision': 5,
     'property-no-unknown': true,
     'property-no-vendor-prefix': true,
@@ -105,7 +106,7 @@ export default {
     'selector-attribute-quotes': 'always',
     'selector-class-pattern': null, // maybe later
     'selector-id-pattern': null, // maybe later
-    'selector-max-compound-selectors': [3, { severity: 'warning' }],
+    'selector-max-compound-selectors': [3, { severity: 'warning', disableFix: true }],
     'selector-not-notation': 'simple',
     'selector-pseudo-element-colon-notation': 'double',
     'shorthand-property-no-redundant-values': true,
