@@ -1,13 +1,13 @@
-name: "Lint GitHub Actions workflows"
+name: 'Lint GitHub Actions workflows'
 
 on:
   pull_request:
     paths:
-      - ".github/**"
+      - '.github/**'
 
 jobs:
   actionlint:
-    uses: "mimmi20/ci/.github/workflows/lint-actions.yml@8.3"
+    uses: 'mimmi20/ci/.github/workflows/lint-actions.yml@8.3'
     with:
       skip-nasm-install: false
       skip-libimagequant-install: false
@@ -15,13 +15,13 @@ jobs:
   # This is a meta job to avoid to have to constantly change the protection rules
   # whenever we touch the matrix.
   lint-status:
-    name: "Lint Status"
+    name: 'Lint Status'
 
-    runs-on: "ubuntu-24.04"
+    runs-on: 'ubuntu-24.04'
 
     if: always()
 
-    needs: "actionlint"
+    needs: 'actionlint'
 
     steps:
       - name: Failing run

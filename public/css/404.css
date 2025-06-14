@@ -1,17 +1,17 @@
 .error-page {
     display: grid;
     position: relative;
-    top: 0;
-    left: 0;
     grid-auto-rows: 50% 25% 12.5% 12.5%;
     align-content: center;
     align-items: center;
-    width: 310px;
-    height: 310px;
+    block-size: 310px;
+    inline-size: 310px;
     margin: 155px auto;
     border-radius: 50%;
     background: linear-gradient(to bottom, #d36242 0%, #8b0000 100%);
     text-align: center;
+    inset-block-start: 0;
+    inset-inline-start: 0;
     isolation: isolate;
 
     &::after {
@@ -19,17 +19,17 @@
         display: block;
         position: relative;
         z-index: -1;
-        top: 40px;
-        width: 310px;
-        height: 17px;
+        block-size: 17px;
+        inline-size: 310px;
         margin: 0 auto;
         background: radial-gradient(ellipse at center, rgb(0 0 0 / 0.65) 0%, rgb(35 26 26 / 0) 59%, rgb(60 44 44 / 0) 100%);
+        inset-block-start: 40px;
     }
 
     & h1 {
         display: block;
         position: relative;
-        width: 100%;
+        inline-size: 100%;
         color: rgb(255 255 255 / 0.94);
         font-size: 100px;
         text-shadow: 0 0 7px rgb(0 0 0 / 0.5);
@@ -40,13 +40,13 @@
             content: '';
             display: block;
             position: relative;
-            bottom: 0;
-            width: 260px;
-            height: 1px;
+            block-size: 1px;
+            inline-size: 260px;
             margin: 0 auto;
             background:
                 radial-gradient(ellipse at center, rgb(111 25 25 / 0.65) 0%, rgb(75 38 38 / 0) 70%, rgb(60 44 44 / 0) 100%),
                 radial-gradient(ellipse at center, rgb(247 173 148 / 0.65) 0%, rgb(255 255 255 / 0.01) 99%, rgb(255 255 255 / 0) 100%);
+            inset-block-end: 0;
         }
     }
 
@@ -58,13 +58,13 @@
             content: '';
             display: block;
             position: relative;
-            top: 11px;
-            width: 130px;
-            height: 1px;
+            block-size: 1px;
+            inline-size: 130px;
             margin: 0 auto;
             background:
                 radial-gradient(ellipse at center, rgb(111 25 25 / 0.65) 0%, rgb(75 38 38 / 0) 70%, rgb(60 44 44 / 0) 100%),
                 radial-gradient(ellipse at center, rgb(247 173 148 / 0.65) 0%, rgb(255 255 255 / 0.01) 99%, rgb(255 255 255 / 0) 100%);
+            inset-block-start: 11px;
         }
     }
 }

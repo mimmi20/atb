@@ -13,7 +13,7 @@
 .was-validated .form-control:has(:valid, .is-valid),
 .was-validated .card.has-validation:not(:has(.form-control, .form-select)):not(:has(.form-control.is-invalid, .form-select.is-invalid)):has(:valid),
 .was-validated:has(> .form-check) .form-check:not(.form-check-inline):has(:valid) {
-    padding-right: calc(1.5em + 0.75rem);
+    padding-inline-end: calc(1.5em + 0.75rem);
     border-color: var(--bs-form-valid-color, #198754);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
@@ -26,7 +26,7 @@
 .was-validated .form-control:has(:invalid),
 .was-validated .card.has-validation:not(:has(.form-control, .form-select)):has(:invalid),
 .was-validated:has(> .form-check) .form-check:not(.form-check-inline):has(:invalid) {
-    padding-right: calc(1.5em + 0.75rem);
+    padding-inline-end: calc(1.5em + 0.75rem);
     border-color: var(--bs-form-invalid-color, #dc3545);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
@@ -37,19 +37,19 @@
 /* fix for validation messages */
 :is(.invalid-feedback, .invalid-min-max-feedback, .invalid-min-feedback, .invalid-max-feedback, .invalid-tooltip) {
     display: none;
-    width: 100%;
-    margin-top: 0.25rem;
+    inline-size: 100%;
+    margin-block-start: 0.25rem;
     color: var(--bs-form-invalid-color);
     font-size: .875em;
 
     & :is(ul, ol) {
         margin-block: 0;
-        padding-left: 0;
+        padding-inline-start: 0;
     }
 
     &:not(:has(ul, ol)),
     & :is(ul, ol) li {
-        padding-left: calc(1.5em + 0.75rem);
+        padding-inline-start: calc(1.5em + 0.75rem);
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
         background-repeat: no-repeat;
         background-position: left calc(0.375em + 0.1875rem) center;
@@ -61,7 +61,7 @@
 
 :is(.valid-feedback, .valid-tooltip):not(:has(ul, ol)),
 :is(.valid-feedback, .valid-tooltip) :is(ul, ol) li {
-    padding-left: calc(1.5em + 0.75rem);
+    padding-inline-start: calc(1.5em + 0.75rem);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: left calc(0.375em + 0.1875rem) center;

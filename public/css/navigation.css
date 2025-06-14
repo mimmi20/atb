@@ -2,9 +2,9 @@
 .nav-item details[open] .dropdown-details-menu {
     display: block;
     position: absolute;
-    left: 0;
-    width: 100%;
-    margin-top: calc(.125rem + var(--bs-dropdown-padding-y, 0));
+    inset-inline-start: 0;
+    inline-size: 100%;
+    margin-block-start: calc(.125rem + var(--bs-dropdown-padding-y, 0));
 }
 
 .nav-item details[open] ul {

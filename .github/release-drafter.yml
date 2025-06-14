@@ -10,70 +10,70 @@ template: |
 
   $CONTRIBUTORS
 
-change-template: "- $TITLE by @$AUTHOR (#$NUMBER)"
+change-template: '- $TITLE by @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&#@`' # You can add # and @ to disable mentions, and add ` to disable code blocks.
-no-changes-template: "- No changes"
-name-template: "$RESOLVED_VERSION"
-tag-template: "$RESOLVED_VERSION"
-version-template: "$MAJOR.$MINOR.$PATCH"
+no-changes-template: '- No changes'
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+version-template: '$MAJOR.$MINOR.$PATCH'
 
 exclude-labels:
-  - "duplicate"
-  - "question"
-  - "invalid"
-  - "wontfix"
+  - 'duplicate'
+  - 'question'
+  - 'invalid'
+  - 'wontfix'
 
 version-resolver:
   major:
     labels:
-      - "bc break"
-      - "removed"
+      - 'bc break'
+      - 'removed'
   minor:
     labels:
-      - "deprecated"
-      - "security"
+      - 'deprecated'
+      - 'security'
   patch:
     labels:
-      - "bug"
-      - "dependencies"
-      - "enhancement"
-      - "maintenance"
-      - "documentation"
+      - 'bug'
+      - 'dependencies'
+      - 'enhancement'
+      - 'maintenance'
+      - 'documentation'
   default: patch
 
 autolabeler:
-  - label: "documentation"
+  - label: 'documentation'
     files:
-      - "*.md"
+      - '*.md'
 
 categories:
-  - title: "**💥 Breaking:**"
+  - title: '**💥 Breaking:**'
     labels:
-      - "bc break"
-  - title: "**🍰 Enhancements:**"
+      - 'bc break'
+  - title: '**🍰 Enhancements:**'
     labels:
-      - "enhancement"
-  - title: "**🐞 Bugs:**"
+      - 'enhancement'
+  - title: '**🐞 Bugs:**'
     labels:
-      - "bug"
-  - title: "**💀 Deprecated:**"
+      - 'bug'
+  - title: '**💀 Deprecated:**'
     labels:
-      - "deprecated"
-  - title: "**🗑 Removed:**"
+      - 'deprecated'
+  - title: '**🗑 Removed:**'
     labels:
-      - "removed"
-  - title: "**🛡 Security:**"
+      - 'removed'
+  - title: '**🛡 Security:**'
     labels:
-      - "security"
-  - title: "**🕸 Dependencies:**"
+      - 'security'
+  - title: '**🕸 Dependencies:**'
     labels:
-      - "dependencies"
-  - title: "**🧹 Maintenance:**"
+      - 'dependencies'
+  - title: '**🧹 Maintenance:**'
     labels:
-      - "maintenance"
-  - title: "**📦 Documentation:**"
+      - 'maintenance'
+  - title: '**📦 Documentation:**'
     labels:
-      - "documentation"
+      - 'documentation'
   # other Labels
   #- title: "**📦 new Useragents:**"
   #  labels:
