@@ -229,7 +229,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Creates and uploads GitHub artifacts in case of failure
-      - uses: 'actions/upload-artifact@v1'
+      - uses: 'actions/upload-artifact@v4'
         if: failure()
         with:
           name: cypress-screenshots
