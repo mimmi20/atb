@@ -159,7 +159,7 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-image-optimizer": "^1.1.8",
     "vite-plugin-static-copy": "^3.0.2",
-    "vitest": "^3.2.3",
+    "vitest": "^3.2.4",
     "yaml": "^2.8.0"
   },
   "engines": {
