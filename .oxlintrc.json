@@ -1,9 +1,5 @@
 {
-  "plugins": [
-    "unicorn",
-    "oxc",
-    "typescript"
-  ],
+  "plugins": ["unicorn", "oxc", "typescript"],
   "rules": {
     "prettier/prettier": "error",
     "array-callback-return": "error",
@@ -32,10 +28,7 @@
     "prefer-spread": "error",
     "radix": "error",
     "strict": "error",
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": ["error", "single"],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unsafe-function-type": "off",
     "for-direction": "error",
@@ -114,26 +107,13 @@
   },
   "overrides": [
     {
-      "files": [
-        "public/**/*.mjs",
-        "public/**/*.ts",
-        "eslint.config.mjs",
-        "postcss.config.mjs",
-        "prettier.config.mjs",
-        "stylelint.config.mjs",
-        "vite.config.ts",
-        "cypress.config.ts"
-      ],
+      "files": ["public/**/*.mjs", "public/**/*.ts", "eslint.config.mjs", "postcss.config.mjs", "prettier.config.mjs", "stylelint.config.mjs", "vite.config.ts", "cypress.config.ts"],
       "languageOptions": {
         "sourceType": "module"
       }
     },
     {
-      "files": [
-        "**/*.ts",
-        "**/*.mts",
-        "**/*.cts"
-      ],
+      "files": ["**/*.ts", "**/*.mts", "**/*.cts"],
       "rules": {
         "no-class-assign": "off",
         "no-const-assign": "off",

@@ -475,6 +475,9 @@ export default tseslint.config(
       'cypress/**/*.js',
       'cypress/**/*.d.ts',
       'vendor/**/*.*',
+      'infection.json5',
+      'public/dist/**/*.*',
+      '.github/**/*.*',
     ],
   }
 );
