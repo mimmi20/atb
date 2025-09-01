@@ -27,7 +27,7 @@
     "test:e2e": "start-server-and-test 'php -S localhost:8082 -t public/ public/index.php -q -ddisplay_errors=1' http://localhost:8082 'npx cypress run'"
   },
   "dependencies": {
-    "bootstrap": "^5.3.7",
+    "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "bootswatch": "^5.3.7",
     "chart.js": "^4.5.0",
