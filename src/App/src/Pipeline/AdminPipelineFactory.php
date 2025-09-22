@@ -22,7 +22,6 @@ use Mezzio\Router\Middleware\RouteMiddlewareFactory;
 use Mezzio\Router\RouteCollector;
 use Mezzio\Router\RouterInterface;
 use Middlewares\Firewall;
-use Mimmi20\Mezzio\Navigation\NavigationMiddleware;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
