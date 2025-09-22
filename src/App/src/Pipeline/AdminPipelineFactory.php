@@ -22,7 +22,6 @@ use Mezzio\Router\Middleware\RouteMiddlewareFactory;
 use Mezzio\Router\RouteCollector;
 use Mezzio\Router\RouterInterface;
 use Middlewares\Firewall;
-use Mimmi20\Mezzio\Navigation\NavigationMiddleware;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -51,7 +50,7 @@ final class AdminPipelineFactory
         // This middleware registers the Mezzio\Router\RouteResult request attribute.
         // module-specific!
         $pipeline->pipe((new RouteMiddlewareFactory('admin-router'))($container));
-        $pipeline->pipe($factory->lazy(NavigationMiddleware::class));
+        $pipeline->pipe($factory->lazy('admin-navigation'));
         $pipeline->pipe($factory->lazy(RouterMiddleware\ImplicitHeadMiddleware::class));
         $pipeline->pipe($factory->lazy(RouterMiddleware\ImplicitOptionsMiddleware::class));
         $pipeline->pipe($factory->lazy(RouterMiddleware\MethodNotAllowedMiddleware::class));

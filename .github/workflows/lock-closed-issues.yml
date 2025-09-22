@@ -2,17 +2,22 @@
 
 # file-version: 1.0
 
-name: 'Lock closed issue'
+name: "Lock closed issue"
 
 on:
   issues:
     types:
-      - 'closed'
+      - "closed"
+
+permissions:
+  contents: read
 
 jobs:
   lock:
-    runs-on: 'ubuntu-latest'
+    name: "Lock"
+    runs-on: "ubuntu-latest"
+    permissions:
+      issues: write
     steps:
-      - uses: 'Dunning-Kruger/lock-issues@v1.2'
-        with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+      - name: "Lock issue"
+        uses: "IOrlandoni/lock-issues@v1.2.1"
