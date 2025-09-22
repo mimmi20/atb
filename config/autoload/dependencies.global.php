@@ -54,11 +54,13 @@ return [
             'admin-url-helper'          => new UrlHelperFactory('/admin', 'admin-router'),
             'admin-url-middleware'      => new UrlHelperMiddlewareFactory('admin-url-helper'),
             'admin-pipeline'            => AdminPipelineFactory::class,
+            'admin-navigation'          => new \Mimmi20\Mezzio\Navigation\NavigationMiddlewareFactory(urlHelperServiceName: 'admin-url-helper'),
 
             'default-router-middleware' => new RouteMiddlewareFactory('default-router'),
             'default-url-helper'        => new UrlHelperFactory('/', 'default-router'),
             'default-url-middleware'    => new UrlHelperMiddlewareFactory('default-url-helper'),
             'default-pipeline'          => DefaultPipelineFactory::class,
+            'default-navigation'        => new \Mimmi20\Mezzio\Navigation\NavigationMiddlewareFactory(urlHelperServiceName: 'default-url-helper'),
         ],
 
         'delegators' => [
