@@ -49,7 +49,7 @@
     "mezzio/mezzio-laminasrouter": "^3.11.0",
     "mezzio/mezzio-laminasviewrenderer": "^2.18.0",
     "mezzio/mezzio-router": "^3.18.0",
-    "mezzio/mezzio-template": "^2.11.0",
+    "mezzio/mezzio-template": "^2.12.0",
     "middlewares/client-ip": "^2.1.0",
     "middlewares/firewall": "^2.1.0",
     "middlewares/lowercase": "^1.1.0",
